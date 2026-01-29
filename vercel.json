@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
+  "routes": [
+    { "src": "^/api/(.*)$", "dest": "/api/$1.js" },
+    { "handle": "filesystem" },
+    { "src": ".*", "dest": "/index.html" }
+  ],
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://qjzdlvpkgucvxbaalzus.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqemRsdnBrZ3VjdnhiYWFsenVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc2MzI2NzUsImV4cCI6MjA4MzIwODY3NX0.FQOXQywJ0Qy9HMmOenTKeH9coLuFjVrrLIu-6n5G0pE"
+  }
+}
