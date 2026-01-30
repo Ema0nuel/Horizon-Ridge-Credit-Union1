@@ -1,4 +1,4 @@
--- WARNING: This schema is for context only and is not meant to be run.
+﻿-- WARNING: This schema is for context only and is not meant to be run.
 -- Table order and constraints may not be valid for execution.
 
 CREATE TABLE public.accounts (
@@ -179,7 +179,7 @@ CREATE TABLE public.user_profiles (
 
 /* PACKAGE.JSON FILE */
 {
-  "name": "horizon-ridge-credit-union",
+  "name": "Summit-ridge-credit-union",
   "version": "0.0.0",
   "scripts": {
     "dev:ngrok": "concurrently \"npm run ngrok\" \"npm run dev\"",
@@ -231,13 +231,13 @@ CREATE TABLE public.user_profiles (
 }
 
 
-â³
-ðŸ¦
-âœ“
+Ã¢ÂÂ³
+Ã°Å¸ÂÂ¦
+Ã¢Å“â€œ
 onClick={() => navigate("/dashboard")}
 &lt; 
-â‚¬
-â‚º
-â‚¹
- â€¢
-âœï¸
+Ã¢â€šÂ¬
+Ã¢â€šÂº
+Ã¢â€šÂ¹
+ Ã¢â‚¬Â¢
+Ã¢Å“ÂÃ¯Â¸Â

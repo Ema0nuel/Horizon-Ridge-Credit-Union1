@@ -166,7 +166,7 @@ export function ContactPage() {
             <div className="flex justify-center mb-6">
               <img
                 src={LOGO}
-                alt="Horizon Ridge Credit Union"
+                alt="Summit Ridge Credit Union"
                 className="h-10 sm:h-12"
               />
             </div>
@@ -484,10 +484,10 @@ export function ContactPage() {
                 <div className="text-center">
                   <div className="text-basic font-bold mb-2">Email</div>
                   <a
-                    href="mailto:support@horizonridgecreditunion.com"
+                    href="mailto:support@Summitridgecreditunion.com"
                     className="text-sm text-secondary hover:text-basic transition-colors"
                   >
-                    support@horizonridgecreditunion.com
+                    support@Summitridgecreditunion.com
                   </a>
                 </div>
                 <div className="text-center">
@@ -536,3 +536,4 @@ async function getClientIP() {
     return null;
   }
 }
+

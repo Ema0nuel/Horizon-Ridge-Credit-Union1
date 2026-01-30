@@ -27,8 +27,8 @@ export const pagesData = [
         slug: "services",
         title: "Our Services",
         seo: {
-            title: "Comprehensive Financial Services | Horizon Ridge Credit Union",
-            description: "Explore Horizon Ridge Credit Union's full range of banking, investment, and business solutions tailored to your needs.",
+            title: "Comprehensive Financial Services | Summit Ridge Credit Union",
+            description: "Explore Summit Ridge Credit Union's full range of banking, investment, and business solutions tailored to your needs.",
             keywords: "banking services, investments, personal banking, business solutions, digital banking",
         },
         settings: {
@@ -48,7 +48,7 @@ export const pagesData = [
             {
                 type: "text",
                 props: {
-                    content: `At Horizon Ridge Credit Union, we offer a complete ecosystem of financial services designed to support individuals, businesses, and institutions. 
+                    content: `At Summit Ridge Credit Union, we offer a complete ecosystem of financial services designed to support individuals, businesses, and institutions. 
           With over 150 years of experience, we've refined our offerings to deliver cutting-edge technology, security, and personalized service.
           Whether you're starting your financial journey or managing complex portfolios, we have the expertise and tools to help you succeed.`,
                     alignment: "center",
@@ -120,7 +120,7 @@ export const pagesData = [
                 type: "cta",
                 props: {
                     heading: "Ready to Explore Our Services?",
-                    subtext: "Open your account today and discover the Horizon Ridge Credit Union difference.",
+                    subtext: "Open your account today and discover the Summit Ridge Credit Union difference.",
                     buttonText: "Get Started",
                     buttonSlug: "signup",
                     isDark: false,
@@ -131,11 +131,11 @@ export const pagesData = [
 
     {
         slug: "about",
-        title: "About Horizon Ridge Credit Union",
+        title: "About Summit Ridge Credit Union",
         seo: {
-            title: "About Horizon Ridge Credit Union | 150+ Years of Banking Excellence",
-            description: "Learn about Horizon Ridge Credit Union's history, mission, values, and commitment to sustainable banking.",
-            keywords: "about Horizon Ridge Credit Union, banking history, company values, sustainability, ESG",
+            title: "About Summit Ridge Credit Union | 150+ Years of Banking Excellence",
+            description: "Learn about Summit Ridge Credit Union's history, mission, values, and commitment to sustainable banking.",
+            keywords: "about Summit Ridge Credit Union, banking history, company values, sustainability, ESG",
         },
         settings: {
             requiresAuth: false,
@@ -146,7 +146,7 @@ export const pagesData = [
             {
                 type: "hero",
                 props: {
-                    heading: "About Horizon Ridge Credit Union, Why our customers trust us?",
+                    heading: "About Summit Ridge Credit Union, Why our customers trust us?",
                     subtext: "Over 150 years of trust, innovation, and financial excellence serving millions worldwide.",
                     image: HeroImage,
                 },
@@ -154,7 +154,7 @@ export const pagesData = [
             {
                 type: "text",
                 props: {
-                    content: `Horizon Ridge Credit Union Bank was founded in 1824 and has grown to become one of Europe's leading financial institutions. 
+                    content: `Summit Ridge Credit Union Bank was founded in 1824 and has grown to become one of Europe's leading financial institutions. 
           With operations in 50+ countries and serving over 8 million customers, we combine deep local expertise with global capabilities.
           Our mission is to empower individuals and businesses to achieve their financial aspirations through innovative solutions,
           trusted advice, and unwavering commitment to security and integrity.`,
@@ -205,15 +205,15 @@ export const pagesData = [
                     title: "Frequently Asked About Us",
                     faqs: [
                         {
-                            q: "When was Horizon Ridge Credit Union founded?",
-                            a: "Horizon Ridge Credit Union was established in 1824, making us one of Europe's oldest and most trusted financial institutions.",
+                            q: "When was Summit Ridge Credit Union founded?",
+                            a: "Summit Ridge Credit Union was established in 1824, making us one of Europe's oldest and most trusted financial institutions.",
                         },
                         {
                             q: "How many customers do you serve?",
                             a: "We serve over 8 million customers across 50+ countries, managing â‚¬2.3 trillion in assets.",
                         },
                         {
-                            q: "Is Horizon Ridge Credit Union regulated?",
+                            q: "Is Summit Ridge Credit Union regulated?",
                             a: "Yes, we are regulated by the European Central Bank and the Dutch Financial Authority, ensuring the highest standards of oversight.",
                         },
                         {
@@ -225,7 +225,7 @@ export const pagesData = [
                             a: "We use bank-level encryption, multi-factor authentication, and continuous security monitoring to protect your data.",
                         },
                         {
-                            q: "Can I work at Horizon Ridge Credit Union?",
+                            q: "Can I work at Summit Ridge Credit Union?",
                             a: "Yes! We hire talented professionals worldwide. Visit our careers page to explore current openings.",
                         },
                     ],
@@ -235,7 +235,7 @@ export const pagesData = [
                 type: "cta",
                 props: {
                     heading: "Join Our Community",
-                    subtext: "Become part of millions of satisfied customers and discover the Horizon Ridge Credit Union advantage.",
+                    subtext: "Become part of millions of satisfied customers and discover the Summit Ridge Credit Union advantage.",
                     buttonText: "Open an Account",
                     buttonSlug: "signup",
                     isDark: true,
@@ -248,7 +248,7 @@ export const pagesData = [
         slug: "faq",
         title: "Frequently Asked Questions",
         seo: {
-            title: "FAQ | Horizon Ridge Credit Union - Answers to Your Banking Questions",
+            title: "FAQ | Summit Ridge Credit Union - Answers to Your Banking Questions",
             description: "Find answers to common questions about accounts, security, fees, and our services.",
             keywords: "FAQ, frequently asked questions, banking questions, account help, customer support",
         },
@@ -316,7 +316,7 @@ export const pagesData = [
                             a: "Yes, our app uses bank-grade encryption, biometric authentication, and advanced security protocols.",
                         },
                         {
-                            q: "Can I use Horizon Ridge Credit Union abroad?",
+                            q: "Can I use Summit Ridge Credit Union abroad?",
                             a: "Yes, our debit and credit cards work worldwide. Notify us of travel plans to ensure seamless access.",
                         },
                     ],
@@ -333,7 +333,7 @@ export const pagesData = [
                         },
                         {
                             q: "Are there ATM fees?",
-                            a: "ATM withdrawals are free at all Horizon Ridge Credit Union ATMs. Third-party ATM fees vary by network; check before withdrawing.",
+                            a: "ATM withdrawals are free at all Summit Ridge Credit Union ATMs. Third-party ATM fees vary by network; check before withdrawing.",
                         },
                         {
                             q: "How much do international transfers cost?",
@@ -369,7 +369,7 @@ export const pagesData = [
                         },
                         {
                             q: "Is the web banking platform secure?",
-                            a: "Yes, we use HTTPS encryption, SSL certificates, and multi-factor authentication. Always use official Horizon Ridge Credit Union domains.",
+                            a: "Yes, we use HTTPS encryption, SSL certificates, and multi-factor authentication. Always use official Summit Ridge Credit Union domains.",
                         },
                         {
                             q: "Can I set up automatic bill payments?",
@@ -395,7 +395,7 @@ export const pagesData = [
         slug: "support",
         title: "Customer Support",
         seo: {
-            title: "Customer Support | Horizon Ridge Credit Union - 24/7 Assistance",
+            title: "Customer Support | Summit Ridge Credit Union - 24/7 Assistance",
             description: "Get help from our 24/7 customer support team via chat, email, phone, or knowledge base.",
             keywords: "customer support, help, contact, chat support, customer service",
         },
@@ -434,7 +434,7 @@ export const pagesData = [
                         {
                             icon: "Mail",
                             title: "Email Support",
-                            description: "Send your questions to support@horizonridgecreditunion.com. We respond within 4 business hours.",
+                            description: "Send your questions to support@Summitridgecreditunion.com. We respond within 4 business hours.",
                         },
                         {
                             icon: "Phone",
@@ -504,9 +504,9 @@ export const pagesData = [
         slug: "careers",
         title: "Join Our Team",
         seo: {
-            title: "Careers at Horizon Ridge Credit Union | Join Our Team",
-            description: "Explore career opportunities at Horizon Ridge Credit Union. Competitive pay, professional development, and inclusive culture.",
-            keywords: "careers, jobs, employment, Horizon Ridge Credit Union careers, financial careers",
+            title: "Careers at Summit Ridge Credit Union | Join Our Team",
+            description: "Explore career opportunities at Summit Ridge Credit Union. Competitive pay, professional development, and inclusive culture.",
+            keywords: "careers, jobs, employment, Summit Ridge Credit Union careers, financial careers",
         },
         settings: {
             requiresAuth: false,
@@ -517,7 +517,7 @@ export const pagesData = [
             {
                 type: "hero",
                 props: {
-                    heading: "Careers at Horizon Ridge Credit Union",
+                    heading: "Careers at Summit Ridge Credit Union",
                     subtext: "Build your future with a trusted global financial leader.",
                     image: BlogTechnology,
                 },
@@ -525,7 +525,7 @@ export const pagesData = [
             {
                 type: "text",
                 props: {
-                    content: `At Horizon Ridge Credit Union, we believe our people are our greatest asset. We offer competitive compensation, professional development, 
+                    content: `At Summit Ridge Credit Union, we believe our people are our greatest asset. We offer competitive compensation, professional development, 
           and a collaborative culture where innovation thrives. Join us and make a difference in the world of finance.`,
                     alignment: "center",
                 },
@@ -613,8 +613,8 @@ export const pagesData = [
         slug: "sustainability",
         title: "Sustainability & ESG",
         seo: {
-            title: "Sustainability & ESG | Horizon Ridge Credit Union - Banking for Better",
-            description: "Learn about Horizon Ridge Credit Union's environmental, social, and governance commitments.",
+            title: "Sustainability & ESG | Summit Ridge Credit Union - Banking for Better",
+            description: "Learn about Summit Ridge Credit Union's environmental, social, and governance commitments.",
             keywords: "sustainability, ESG, environmental, social responsibility, green banking",
         },
         settings: {
@@ -634,7 +634,7 @@ export const pagesData = [
             {
                 type: "text",
                 props: {
-                    content: `Horizon Ridge Credit Union is committed to sustainable banking practices. We integrate environmental, social, and governance (ESG) 
+                    content: `Summit Ridge Credit Union is committed to sustainable banking practices. We integrate environmental, social, and governance (ESG) 
           principles into all our operations. From reducing carbon emissions to supporting ethical business practices, 
           we're dedicated to creating positive impact for society and the planet.`,
                     alignment: "center",
@@ -723,7 +723,7 @@ export const pagesData = [
         slug: "private-banking",
         title: "Private Banking",
         seo: {
-            title: "Private Banking | Horizon Ridge Credit Union - Wealth Management for HNWIs",
+            title: "Private Banking | Summit Ridge Credit Union - Wealth Management for HNWIs",
             description: "Premium banking services for high-net-worth individuals. Wealth management, personalized advisory, and exclusive benefits.",
             keywords: "private banking, wealth management, high-net-worth, investment advisory, personal banker",
         },
@@ -799,7 +799,7 @@ export const pagesData = [
                         },
                         {
                             q: "How is my portfolio managed?",
-                            a: "Your dedicated advisor creates a customized strategy aligned with your goals, risk tolerance, and time horizon.",
+                            a: "Your dedicated advisor creates a customized strategy aligned with your goals, risk tolerance, and time Summit.",
                         },
                         {
                             q: "What investment options are available?",
@@ -833,7 +833,7 @@ export const pagesData = [
         slug: "business-solution",
         title: "Business Solutions",
         seo: {
-            title: "Business Solutions | Horizon Ridge Credit Union - Banking for SMEs & Enterprises",
+            title: "Business Solutions | Summit Ridge Credit Union - Banking for SMEs & Enterprises",
             description: "Comprehensive business banking solutions. Lending, trade finance, cash management, and tailored services for growth.",
             keywords: "business banking, SME banking, corporate banking, lending, trade finance, business solutions",
         },
@@ -854,7 +854,7 @@ export const pagesData = [
             {
                 type: "text",
                 props: {
-                    content: `Horizon Ridge Credit Union provides tailored business banking solutions designed to accelerate growth. From working capital solutions 
+                    content: `Summit Ridge Credit Union provides tailored business banking solutions designed to accelerate growth. From working capital solutions 
           to supply chain financing, we support your business at every stage. Our expert team understands the challenges of growing businesses 
           and provides personalized guidance and tools to help you succeed.`,
                     alignment: "center",
@@ -943,7 +943,7 @@ export const pagesData = [
         slug: "investment-service",
         title: "Investment Services",
         seo: {
-            title: "Investment Services | Horizon Ridge Credit Union - Grow Your Wealth",
+            title: "Investment Services | Summit Ridge Credit Union - Grow Your Wealth",
             description: "Professional investment management and access to 500+ global funds, stocks, and securities.",
             keywords: "investment services, portfolio management, stocks, bonds, mutual funds, wealth building",
         },
@@ -964,8 +964,8 @@ export const pagesData = [
             {
                 type: "text",
                 props: {
-                    content: `Build and grow your wealth with Horizon Ridge Credit Union's investment services. Our expert advisors help you create a diversified 
-          portfolio aligned with your goals, risk profile, and time horizon. Whether you're a beginner investor or experienced trader, 
+                    content: `Build and grow your wealth with Summit Ridge Credit Union's investment services. Our expert advisors help you create a diversified 
+          portfolio aligned with your goals, risk profile, and time Summit. Whether you're a beginner investor or experienced trader, 
           we have the tools, knowledge, and support to help you succeed.`,
                     alignment: "center",
                 },
@@ -1053,8 +1053,8 @@ export const pagesData = [
         slug: "privacy",
         title: "Privacy Policy",
         seo: {
-            title: "Privacy Policy | Horizon Ridge Credit Union - Your Data, Protected",
-            description: "Learn how Horizon Ridge Credit Union protects your personal data and respects your privacy.",
+            title: "Privacy Policy | Summit Ridge Credit Union - Your Data, Protected",
+            description: "Learn how Summit Ridge Credit Union protects your personal data and respects your privacy.",
             keywords: "privacy policy, data protection, GDPR, personal data",
         },
         settings: {
@@ -1070,7 +1070,7 @@ export const pagesData = [
                     lastUpdated: "January 7, 2025",
                     content: `
 1. Introduction
-At Horizon Ridge Credit Union, we are committed to protecting your privacy and ensuring you have a positive experience on our website and when using our services. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our digital platforms and use our services.
+At Summit Ridge Credit Union, we are committed to protecting your privacy and ensuring you have a positive experience on our website and when using our services. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our digital platforms and use our services.
 
 Please read this Privacy Policy carefully. If you do not agree with our policies and practices, please do not use our services.
 
@@ -1084,7 +1084,7 @@ Usage Data: Pages visited, time spent on pages, clicks, searches, and interactio
 Location Data: With your consent, GPS location and mobile device information.
 
 3. How We Use Your Information
-Horizon Ridge Credit Union uses the collected information for various purposes:
+Summit Ridge Credit Union uses the collected information for various purposes:
 
 Providing and maintaining our services
 Processing transactions and sending related information
@@ -1105,7 +1105,7 @@ With other financial institutions when necessary for payment processing
 With your explicit consent for specific purposes
 
 5. Data Security
-Horizon Ridge Credit Union implements industry-standard security measures to protect your personal information, including:
+Summit Ridge Credit Union implements industry-standard security measures to protect your personal information, including:
 
 Bank-level encryption (TLS/SSL) for data in transit
 Advanced firewalls and intrusion detection systems
@@ -1156,12 +1156,12 @@ Our website may contain links to third-party websites. We are not responsible fo
 Our services are not intended for individuals under 18 years old. We do not knowingly collect personal information from children. If we discover we have collected information from a child, we will delete it promptly.
 
 11. Changes to This Policy
-Horizon Ridge Credit Union may update this Privacy Policy from time to time. We will notify you of significant changes via email or by posting a notice on our website. Your continued use of our services after changes constitutes acceptance of the updated policy.
+Summit Ridge Credit Union may update this Privacy Policy from time to time. We will notify you of significant changes via email or by posting a notice on our website. Your continued use of our services after changes constitutes acceptance of the updated policy.
 
 12. Contact Us
 If you have questions about this Privacy Policy or our privacy practices, please contact:
 
-Horizon Ridge Credit Union Bank NV
+Summit Ridge Credit Union Bank NV
 Data Protection Officer
 Email: privacy@abnAmro.com
 Phone: +31 20 104 6000
@@ -1178,8 +1178,8 @@ Last Updated: January 7, 2025
         slug: "terms",
         title: "Terms of Service",
         seo: {
-            title: "Terms of Service | Horizon Ridge Credit Union - Legal Terms",
-            description: "Review Horizon Ridge Credit Union's terms and conditions for using our services and platforms.",
+            title: "Terms of Service | Summit Ridge Credit Union - Legal Terms",
+            description: "Review Summit Ridge Credit Union's terms and conditions for using our services and platforms.",
             keywords: "terms of service, terms and conditions, legal terms, user agreement",
         },
         settings: {
@@ -1195,34 +1195,34 @@ Last Updated: January 7, 2025
                     lastUpdated: "January 7, 2025",
                     content: `
 1. Acceptance of Terms
-By accessing and using Horizon Ridge Credit Union's website, mobile application, and services, you agree to be bound by these Terms of Service. If you do not agree to abide by the above, please do not use this service.
+By accessing and using Summit Ridge Credit Union's website, mobile application, and services, you agree to be bound by these Terms of Service. If you do not agree to abide by the above, please do not use this service.
 
 2. Use License
-Permission is granted to temporarily download one copy of the materials (information or software) on Horizon Ridge Credit Union's platform for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+Permission is granted to temporarily download one copy of the materials (information or software) on Summit Ridge Credit Union's platform for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
 
 Modifying or copying the materials
 Using the materials for any commercial purpose or for any public display
-Attempting to decompile or reverse engineer any software contained on Horizon Ridge Credit Union
+Attempting to decompile or reverse engineer any software contained on Summit Ridge Credit Union
 Removing any copyright or other proprietary notations from the materials
 Transferring the materials to another person or "mirroring" the materials on any other server
 Attempting to gain unauthorized access to the platform or systems
 
 3. Disclaimer of Warranties
-The materials on Horizon Ridge Credit Union's platform are provided on an 'as is' basis. Horizon Ridge Credit Union makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+The materials on Summit Ridge Credit Union's platform are provided on an 'as is' basis. Summit Ridge Credit Union makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
 
-Further, Horizon Ridge Credit Union does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its platform or otherwise relating to such materials or on any sites linked to this platform.
+Further, Summit Ridge Credit Union does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its platform or otherwise relating to such materials or on any sites linked to this platform.
 
 4. Limitations of Liability
-In no event shall Horizon Ridge Credit Union or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Horizon Ridge Credit Union's platform, even if Horizon Ridge Credit Union or an authorized representative has been notified orally or in writing of the possibility of such damage.
+In no event shall Summit Ridge Credit Union or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Summit Ridge Credit Union's platform, even if Summit Ridge Credit Union or an authorized representative has been notified orally or in writing of the possibility of such damage.
 
 5. Accuracy of Materials
-The materials appearing on Horizon Ridge Credit Union's platform could include technical, typographical, or photographic errors. Horizon Ridge Credit Union does not warrant that any of the materials on its platform are accurate, complete, or current. Horizon Ridge Credit Union may make changes to the materials contained on its platform at any time without notice.
+The materials appearing on Summit Ridge Credit Union's platform could include technical, typographical, or photographic errors. Summit Ridge Credit Union does not warrant that any of the materials on its platform are accurate, complete, or current. Summit Ridge Credit Union may make changes to the materials contained on its platform at any time without notice.
 
 6. Materials and Content
-Horizon Ridge Credit Union does not review all materials posted to its platform, but Horizon Ridge Credit Union and its designees have the right (but not the obligation) to refuse or remove any material that is available via the platform. Horizon Ridge Credit Union further reserves the right to refuse service to anyone for any reason at any time.
+Summit Ridge Credit Union does not review all materials posted to its platform, but Summit Ridge Credit Union and its designees have the right (but not the obligation) to refuse or remove any material that is available via the platform. Summit Ridge Credit Union further reserves the right to refuse service to anyone for any reason at any time.
 
 7. Limitations on Use
-You agree not to access or use the platform for any purpose other than that for which we make the platform available. The platform may not be used in connection with any commercial endeavors except those specifically endorsed or approved by Horizon Ridge Credit Union.
+You agree not to access or use the platform for any purpose other than that for which we make the platform available. The platform may not be used in connection with any commercial endeavors except those specifically endorsed or approved by Summit Ridge Credit Union.
 
 Prohibited behavior includes:
 Harassing or causing distress or inconvenience to any person
@@ -1234,13 +1234,13 @@ Collecting or tracking personal information of others
 8. Account Responsibilities
 If you create an account on our platform, you are responsible for maintaining the confidentiality of your account information and password and for restricting access to your computer. You agree to accept responsibility for all activities that occur under your account or password.
 
-You must notify us immediately of any unauthorized use of your account. Horizon Ridge Credit Union will not be liable for any loss or damage arising from your failure to maintain secure account information.
+You must notify us immediately of any unauthorized use of your account. Summit Ridge Credit Union will not be liable for any loss or damage arising from your failure to maintain secure account information.
 
 9. Third-Party Links
-Horizon Ridge Credit Union has not reviewed all of the sites linked to its platform and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Horizon Ridge Credit Union of the site. Use of any such linked website is at the user's own risk.
+Summit Ridge Credit Union has not reviewed all of the sites linked to its platform and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Summit Ridge Credit Union of the site. Use of any such linked website is at the user's own risk.
 
 10. Modifications to Terms
-Horizon Ridge Credit Union may revise these Terms of Service for its platform at any time without notice. By using this platform, you are agreeing to be bound by the then current version of these Terms of Service.
+Summit Ridge Credit Union may revise these Terms of Service for its platform at any time without notice. By using this platform, you are agreeing to be bound by the then current version of these Terms of Service.
 
 11. Governing Law
 These terms and conditions are governed by and construed in accordance with the laws of the Netherlands, and you irrevocably submit to the exclusive jurisdiction of the courts in Amsterdam.
@@ -1254,7 +1254,7 @@ If any provision of these Terms is found to be invalid or unenforceable, the rem
 14. Contact Information
 If you have any questions about these Terms of Service, please contact:
 
-Horizon Ridge Credit Union Bank NV
+Summit Ridge Credit Union Bank NV
 Legal Department
 Email: legal@abnAmro.com
 Phone: +31 20 104 6000
@@ -1271,8 +1271,8 @@ Last Updated: January 7, 2025
         slug: "cookie",
         title: "Cookie Policy",
         seo: {
-            title: "Cookie Policy | Horizon Ridge Credit Union - Cookie Settings",
-            description: "Learn about how Horizon Ridge Credit Union uses cookies and how to manage your cookie preferences.",
+            title: "Cookie Policy | Summit Ridge Credit Union - Cookie Settings",
+            description: "Learn about how Summit Ridge Credit Union uses cookies and how to manage your cookie preferences.",
             keywords: "cookies, cookie policy, cookie settings, tracking, analytics",
         },
         settings: {
@@ -1354,7 +1354,7 @@ Edge: Settings > Privacy, search, and services > Clear browsing data
 Please note that disabling essential cookies may affect the functionality of our website.
 
 7. Do Not Track (DNT)
-Some browsers include a Do Not Track feature. Currently, there is no universally accepted standard for how websites should respond to DNT signals. Horizon Ridge Credit Union honors DNT requests by not setting marketing cookies for users with DNT enabled.
+Some browsers include a Do Not Track feature. Currently, there is no universally accepted standard for how websites should respond to DNT signals. Summit Ridge Credit Union honors DNT requests by not setting marketing cookies for users with DNT enabled.
 
 8. Local Storage and Similar Technologies
 In addition to cookies, we may use other technologies such as:
@@ -1375,7 +1375,7 @@ We may update this Cookie Policy from time to time to reflect changes in our coo
 12. Contact Us
 If you have questions about our use of cookies, please contact:
 
-Horizon Ridge Credit Union Bank NV
+Summit Ridge Credit Union Bank NV
 Privacy Team
 Email: privacy@abnAmro.com
 Phone: +31 20 104 6000
@@ -1394,8 +1394,8 @@ Last Updated: January 7, 2025
         slug: "disclaimer",
         title: "Disclaimer",
         seo: {
-            title: "Disclaimer | Horizon Ridge Credit Union - Legal Disclaimer",
-            description: "Review Horizon Ridge Credit Union's legal disclaimers and liability limitations.",
+            title: "Disclaimer | Summit Ridge Credit Union - Legal Disclaimer",
+            description: "Review Summit Ridge Credit Union's legal disclaimers and liability limitations.",
             keywords: "disclaimer, liability, legal disclaimer, user responsibility",
         },
         settings: {
@@ -1411,9 +1411,9 @@ Last Updated: January 7, 2025
                     lastUpdated: "January 7, 2025",
                     content: `
 1. General Disclaimer
-This website and all materials contained herein are provided by Horizon Ridge Credit Union Bank NV ("Horizon Ridge Credit Union," "we," "us," or "our") on an "as-is" basis without warranties of any kind, either express or implied. We make no representations or warranties regarding the accuracy, completeness, timeliness, or reliability of any content on this website.
+This website and all materials contained herein are provided by Summit Ridge Credit Union Bank NV ("Summit Ridge Credit Union," "we," "us," or "our") on an "as-is" basis without warranties of any kind, either express or implied. We make no representations or warranties regarding the accuracy, completeness, timeliness, or reliability of any content on this website.
 
-Use of this website and any information contained herein is at your own risk. Horizon Ridge Credit Union shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the website or services.
+Use of this website and any information contained herein is at your own risk. Summit Ridge Credit Union shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the website or services.
 
 2. Financial Information Disclaimer
 The information provided on this website, including investment advice, market analysis, and financial projections, is for informational purposes only and should not be construed as financial advice. Past performance is not indicative of future results.
@@ -1424,7 +1424,7 @@ Conduct your own research and due diligence
 Review all relevant documentation and terms
 Understand the risks associated with any investment or financial product
 
-Horizon Ridge Credit Union does not guarantee any specific returns or outcomes. Market conditions, interest rates, and economic factors can change unexpectedly and affect the performance of financial products.
+Summit Ridge Credit Union does not guarantee any specific returns or outcomes. Market conditions, interest rates, and economic factors can change unexpectedly and affect the performance of financial products.
 
 3. Investment Risks
 All investments carry risk, including the potential loss of principal. The value of investments may fluctuate and past performance does not guarantee future results. Certain investment products are subject to regulatory limitations and may not be suitable for all investors.
@@ -1439,7 +1439,7 @@ Diversify your investments across multiple asset classes
 If you conduct transactions in currencies other than your home currency, you are subject to exchange rate fluctuations. The exchange rate between currencies can change rapidly and unpredictably, potentially affecting the value of your investments and transactions.
 
 5. Technical Limitations
-Horizon Ridge Credit Union does not warrant that:
+Summit Ridge Credit Union does not warrant that:
 The website will be available at all times without interruption
 The website will be free from errors, viruses, or malicious code
 Information or services will be delivered without delay
@@ -1448,7 +1448,7 @@ Third-party services integrated into the website will function reliably
 We will make reasonable efforts to maintain website availability and security, but we cannot guarantee uninterrupted service.
 
 6. Third-Party Content and Links
-This website may contain links to third-party websites and services. Horizon Ridge Credit Union is not responsible for:
+This website may contain links to third-party websites and services. Summit Ridge Credit Union is not responsible for:
 The accuracy, completeness, or reliability of third-party content
 The privacy practices of third-party websites
 Any transactions or interactions with third parties
@@ -1457,10 +1457,10 @@ Any damages arising from use of third-party services
 Your interaction with third parties is governed by their terms and conditions, not ours.
 
 3. Regulatory Compliance Disclaimer
-While Horizon Ridge Credit Union is regulated by the European Central Bank (ECB) and the Dutch Financial Authority (AFM), the information on this website does not constitute financial advice or recommendations subject to regulatory oversight. Certain services may only be available in specific jurisdictions due to regulatory restrictions.
+While Summit Ridge Credit Union is regulated by the European Central Bank (ECB) and the Dutch Financial Authority (AFM), the information on this website does not constitute financial advice or recommendations subject to regulatory oversight. Certain services may only be available in specific jurisdictions due to regulatory restrictions.
 
 8. Limitation of Liability
-To the maximum extent permitted by applicable law, Horizon Ridge Credit Union and its officers, directors, employees, and agents shall not be liable for any of the following, even if we have been advised of the possibility of such damages:
+To the maximum extent permitted by applicable law, Summit Ridge Credit Union and its officers, directors, employees, and agents shall not be liable for any of the following, even if we have been advised of the possibility of such damages:
 
 Loss of revenue or profits
 Loss of business opportunity
@@ -1469,10 +1469,10 @@ Interruption of service
 Consequential, incidental, special, or punitive damages
 
 9. No Warranty of Legality
-Horizon Ridge Credit Union does not warrant that the use of this website or services complies with all applicable laws and regulations in your jurisdiction. Users are responsible for ensuring that their use complies with local, state, and federal laws.
+Summit Ridge Credit Union does not warrant that the use of this website or services complies with all applicable laws and regulations in your jurisdiction. Users are responsible for ensuring that their use complies with local, state, and federal laws.
 
 10. Tax Implications
-The tax implications of any financial product or transaction can be complex and vary based on individual circumstances. Horizon Ridge Credit Union does not provide tax advice. You should consult with a qualified tax professional before engaging in any transaction with potential tax consequences.
+The tax implications of any financial product or transaction can be complex and vary based on individual circumstances. Summit Ridge Credit Union does not provide tax advice. You should consult with a qualified tax professional before engaging in any transaction with potential tax consequences.
 
 11. User Responsibility
 By using this website, you acknowledge that:
@@ -1483,15 +1483,15 @@ You will conduct your own due diligence before making any commitment
 You accept full responsibility for your financial decisions and their outcomes
 
 12. Changes to Disclaimer
-Horizon Ridge Credit Union may update this disclaimer at any time without notice. Your continued use of the website after changes constitutes acceptance of the updated disclaimer.
+Summit Ridge Credit Union may update this disclaimer at any time without notice. Your continued use of the website after changes constitutes acceptance of the updated disclaimer.
 
 13. Entire Agreement
-This disclaimer, together with our Privacy Policy, Terms of Service, and Cookie Policy, constitutes the entire agreement between you and Horizon Ridge Credit Union regarding the use of this website and our services. If any provision is found to be invalid or unenforceable, the remaining provisions shall remain in effect.
+This disclaimer, together with our Privacy Policy, Terms of Service, and Cookie Policy, constitutes the entire agreement between you and Summit Ridge Credit Union regarding the use of this website and our services. If any provision is found to be invalid or unenforceable, the remaining provisions shall remain in effect.
 
 14. Contact and Complaints
 If you have complaints about our services or the information on this website, you may contact:
 
-Horizon Ridge Credit Union Bank NV
+Summit Ridge Credit Union Bank NV
 Complaints Department
 Email: complaints@abnAmro.com
 Phone: +31 20 104 6000
@@ -1511,3 +1511,4 @@ Last Updated: January 7, 2025
         ],
     },
 ];
+

@@ -663,7 +663,7 @@ export function TaxRefundPage() {
         <div class="container">
           <div class="header">
             <h1>Tax Refund Request Receipt</h1>
-            <p>Horizon Ridge Credit Union Bank</p>
+            <p>Summit Ridge Credit Union Bank</p>
           </div>
 
           <div class="section">
@@ -742,7 +742,7 @@ export function TaxRefundPage() {
           </div>
 
           <div class="footer">
-            <p>Thank you for banking with Horizon Ridge Credit Union</p>
+            <p>Thank you for banking with Summit Ridge Credit Union</p>
             <p>Keep this receipt for your records</p>
           </div>
         </div>
@@ -831,7 +831,7 @@ export function TaxRefundPage() {
             </h1>
           </div>
           <p className="text-sm sm:text-base text-secondary opacity-70">
-            File your tax refund request with Horizon Ridge Credit Union. We'll
+            File your tax refund request with Summit Ridge Credit Union. We'll
             report to the tax authority and credit your account upon approval.
           </p>
         </div>
@@ -1246,3 +1246,4 @@ export function TaxRefundPage() {
 }
 
 export default TaxRefundPage;
+

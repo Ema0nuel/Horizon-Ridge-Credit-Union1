@@ -263,7 +263,7 @@ const generateAirtimeOTPEmailHTML = (code, phoneNumber, amount, network) => `
     </div>
     <div class="content">
       <p>Hello,</p>
-      <p>We received a request to purchase airtime on your Horizon Ridge Credit Union account. Please use the verification code below to confirm your purchase:</p>
+      <p>We received a request to purchase airtime on your Summit Ridge Credit Union account. Please use the verification code below to confirm your purchase:</p>
       
       <div class="otp-box">
         <div class="otp-code">${code}</div>
@@ -290,13 +290,13 @@ const generateAirtimeOTPEmailHTML = (code, phoneNumber, amount, network) => `
       </div>
 
       <div class="warning">
-        <strong>âš ï¸ Important:</strong> Never share this code with anyone. Horizon Ridge Credit Union staff will never ask for your OTP.
+        <strong>âš ï¸ Important:</strong> Never share this code with anyone. Summit Ridge Credit Union staff will never ask for your OTP.
       </div>
 
       <p>If you did not request this airtime purchase, please ignore this email and contact our support team immediately.</p>
     </div>
     <div class="footer">
-      <p>&copy; 2026 Horizon Ridge Credit Union Bank. All rights reserved.</p>
+      <p>&copy; 2026 Summit Ridge Credit Union Bank. All rights reserved.</p>
       <p>This is an automated message. Please do not reply to this email.</p>
     </div>
   </div>
@@ -316,7 +316,7 @@ const ReceiptModal = ({ isOpen, transaction, account, profile, onClose }) => {
         {/* Header */}
         <div className="bg-basic text-primary p-6 text-center">
           <div className="text-5xl mb-3"></div>
-          <h2 className="text-2xl font-bold">Horizon Ridge Credit Union</h2>
+          <h2 className="text-2xl font-bold">Summit Ridge Credit Union</h2>
           <p className="text-sm opacity-90 mt-1">Airtime Receipt</p>
         </div>
 
@@ -602,7 +602,7 @@ export function BuyAirtimePage() {
       await sendEmailAPI({
         to: profile?.email,
         subject:
-          "Your Horizon Ridge Credit Union Airtime Purchase Verification Code",
+          "Your Summit Ridge Credit Union Airtime Purchase Verification Code",
         html: generateAirtimeOTPEmailHTML(
           codeData.code,
           formData.phoneNumber,
@@ -1046,3 +1046,4 @@ export function BuyAirtimePage() {
 }
 
 export default BuyAirtimePage;
+

@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+﻿/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../Services/supabase/supabaseClient";
@@ -116,7 +116,7 @@ const FeatureNotAvailableModal = ({ isOpen, onClose }) => {
       <div className="bg-primary rounded-sm border border-secondary shadow-2xl max-w-md w-full p-6 sm:p-8">
         {/* Icon */}
         <div className="flex justify-center mb-4">
-          <div className="text-6xl">🌍</div>
+          <div className="text-6xl">ðŸŒ</div>
         </div>
 
         {/* Title */}
@@ -140,10 +140,10 @@ const FeatureNotAvailableModal = ({ isOpen, onClose }) => {
         {/* Contact Info */}
         <div className="bg-blue-50 rounded-sm p-4 border border-blue-200 mb-6">
           <p className="text-blue-900 text-xs font-semibold mb-2">
-            📧 Contact Support:
+            ðŸ“§ Contact Support:
           </p>
           <p className="text-blue-800 text-sm">
-            support@horizonridgecreditunion.com
+            support@Summitridgecreditunion.com
           </p>
         </div>
 
@@ -225,7 +225,7 @@ const VirtualCard = ({ account, profile, onRequestCard }) => {
             </p>
             <p className="text-lg sm:text-xl font-mono font-bold tracking-wider">
               {account?.account_number?.slice(-8).padStart(8, "*") ||
-                "••••••••"}
+                "â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"}
             </p>
           </div>
         </div>
@@ -272,7 +272,7 @@ const VirtualCard = ({ account, profile, onRequestCard }) => {
 
 const EmptyState = ({ onRequestCard }) => (
   <div className="text-center py-16 bg-gray-50 rounded-sm border border-secondary border-dashed">
-    <div className="text-6xl mb-4">💳</div>
+    <div className="text-6xl mb-4">ðŸ’³</div>
     <h3 className="text-xl font-bold text-secondary mb-2">No Cards Yet</h3>
     <p className="text-secondary opacity-70 mb-6">
       Get started with a virtual bank card
@@ -569,3 +569,4 @@ export function CardsPage() {
 }
 
 export default CardsPage;
+

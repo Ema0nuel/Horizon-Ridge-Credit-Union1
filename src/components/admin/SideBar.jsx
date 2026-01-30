@@ -165,7 +165,7 @@ const SideBar = ({ isOpen, onClose }) => {
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-secondary bg-secondary bg-opacity-5">
           <div className="text-xs text-secondary opacity-70 space-y-1">
             <p className="font-semibold">Admin Portal v1.0</p>
-            <p>Â© {new Date().getFullYear()} Horizon Ridge Credit Union Bank</p>
+            <p>Â© {new Date().getFullYear()} Summit Ridge Credit Union Bank</p>
             <p className="text-xs opacity-50 mt-2">
               Last updated: {new Date().toLocaleDateString()}
             </p>
@@ -177,4 +177,5 @@ const SideBar = ({ isOpen, onClose }) => {
 };
 
 export default SideBar;
+
 

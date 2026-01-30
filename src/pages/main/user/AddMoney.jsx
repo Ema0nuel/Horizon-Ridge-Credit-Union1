@@ -200,7 +200,7 @@ const generateDepositOTPEmailHTML = (code, amount, bankName) => `
     </div>
     <div class="content">
       <p>Hello,</p>
-      <p>We received a request to add funds to your Horizon Ridge Credit Union account. Please use the verification code below to confirm your deposit:</p>
+      <p>We received a request to add funds to your Summit Ridge Credit Union account. Please use the verification code below to confirm your deposit:</p>
       <div class="otp-box">
         <div class="otp-code">${code}</div>
         <div class="otp-label">Valid for 5 minutes</div>
@@ -220,12 +220,12 @@ const generateDepositOTPEmailHTML = (code, amount, bankName) => `
         </div>
       </div>
       <div class="warning">
-        <strong>âš ï¸ Important:</strong> Never share this code with anyone. Horizon Ridge Credit Union staff will never ask for your OTP.
+        <strong>âš ï¸ Important:</strong> Never share this code with anyone. Summit Ridge Credit Union staff will never ask for your OTP.
       </div>
       <p>If you did not request this deposit, please ignore this email and contact our support team immediately.</p>
     </div>
     <div class="footer">
-      <p>&copy; 2026 Horizon Ridge Credit Union Bank. All rights reserved.</p>
+      <p>&copy; 2026 Summit Ridge Credit Union Bank. All rights reserved.</p>
       <p>This is an automated message. Please do not reply to this email.</p>
     </div>
   </div>
@@ -241,7 +241,7 @@ const ReceiptModal = ({ isOpen, transaction, account, profile, onClose }) => {
       <div className="bg-primary rounded-sm border border-secondary shadow-2xl max-w-md w-full max-h-96 overflow-y-auto">
         <div className="bg-basic text-primary p-6 text-center">
           <div className="text-5xl mb-3"></div>
-          <h2 className="text-2xl font-bold">Horizon Ridge Credit Union</h2>
+          <h2 className="text-2xl font-bold">Summit Ridge Credit Union</h2>
           <p className="text-sm opacity-90 mt-1">Deposit Receipt</p>
         </div>
         <div className="p-6 space-y-4">
@@ -535,7 +535,7 @@ export function AddMoneyPage() {
 
       const emailPayload = {
         to: profile.email.trim(),
-        subject: "Your Horizon Ridge Credit Union Deposit Verification Code",
+        subject: "Your Summit Ridge Credit Union Deposit Verification Code",
         html: generateDepositOTPEmailHTML(
           codeData.code,
           `${toAccount.currency} ${parseFloat(formData.amount).toFixed(2)}`,
@@ -995,3 +995,4 @@ export function AddMoneyPage() {
 }
 
 export default AddMoneyPage;
+

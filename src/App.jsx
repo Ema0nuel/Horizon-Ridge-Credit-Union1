@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+﻿import React, { Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import TranslateWidget from "./utils/TranslateWidget";
 import { LoadingSpinner } from "./components/Spinner";
@@ -106,7 +106,7 @@ const App = () => {
 
     // Dev mode: Show welcome banner
     if (ConsoleGuard.isDevMode) {
-      ConsoleWarning.banner("🔒 HORIZON RIDGE CREDIT UNION - DEV MODE", "info");
+      ConsoleWarning.banner("ðŸ”’ Summit RIDGE CREDIT UNION - DEV MODE", "info");
     }
   }, []);
   return (
@@ -162,3 +162,4 @@ const App = () => {
 };
 
 export default App;
+

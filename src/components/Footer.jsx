@@ -45,7 +45,7 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <img
               src={LOGO}
-              alt="Horizon Ridge Credit Union"
+              alt="Summit Ridge Credit Union"
               className="w-8 h-auto"
             />
             <p className="text-sm opacity-80">
@@ -109,10 +109,10 @@ export default function Footer() {
               <li className="flex items-start gap-2">
                 <Mail size={16} className="mt-1 flex-shrink-0 text-basic" />
                 <a
-                  href="mailto:support@horizonridgecreditunion.com"
+                  href="mailto:support@Summitridgecreditunion.com"
                   className="text-sm opacity-80 hover:text-basic hover:opacity-100 transition-all"
                 >
-                  support@horizonridgecreditunion.com
+                  support@Summitridgecreditunion.com
                 </a>
               </li>
               <li className="flex items-start gap-2">
@@ -131,7 +131,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs opacity-60">
-            ©{currentYear} Horizon Ridge Credit Union Bank. All rights reserved.
+            ©{currentYear} Summit Ridge Credit Union Bank. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs">
             <a
@@ -164,3 +164,4 @@ export default function Footer() {
     </footer>
   );
 }
+

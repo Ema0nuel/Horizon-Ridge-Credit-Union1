@@ -84,7 +84,7 @@ const Header = ({ adminEmail, onMenuToggle }) => {
           <div className="flex items-center gap-3">
             <img
               src={LOGO}
-              alt="Horizon Ridge Credit Union"
+              alt="Summit Ridge Credit Union"
               className="h-8 sm:h-10"
             />
             <div className="hidden sm:block border-l border-secondary pl-3">
@@ -143,3 +143,4 @@ const Header = ({ adminEmail, onMenuToggle }) => {
 };
 
 export default Header;
+

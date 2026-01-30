@@ -257,7 +257,7 @@ const ReceiptModal = ({ isOpen, transaction, account, profile, onClose }) => {
         {/* Receipt Header */}
         <div className="bg-basic text-primary p-6 text-center">
           <div className="text-5xl mb-3"></div>
-          <h2 className="text-2xl font-bold">Horizon Ridge Credit Union</h2>
+          <h2 className="text-2xl font-bold">Summit Ridge Credit Union</h2>
           <p className="text-sm opacity-90 mt-1">Transaction Receipt</p>
         </div>
 
@@ -344,7 +344,7 @@ const ReceiptModal = ({ isOpen, transaction, account, profile, onClose }) => {
         {/* Footer */}
         <div className="bg-gray-50 p-4 border-t border-secondary text-center">
           <p className="text-xs text-secondary opacity-70 mb-4">
-            Thank you for using Horizon Ridge Credit Union
+            Thank you for using Summit Ridge Credit Union
           </p>
           <button
             onClick={onClose}
@@ -392,7 +392,7 @@ const generateOTPEmailHTML = (code, recipientName, amount, transferType) => `
     </div>
     <div class="content">
       <p>Hello <strong>${recipientName || "User"}</strong>,</p>
-      <p>We received a request to transfer funds from your Horizon Ridge Credit Union account. Please use the verification code below to complete your transaction:</p>
+      <p>We received a request to transfer funds from your Summit Ridge Credit Union account. Please use the verification code below to complete your transaction:</p>
       
       <div class="otp-box">
         <div class="otp-code">${code}</div>
@@ -421,13 +421,13 @@ const generateOTPEmailHTML = (code, recipientName, amount, transferType) => `
       </div>
 
       <div class="warning">
-        <strong>âš ï¸ Important:</strong> Never share this code with anyone. Horizon Ridge Credit Union staff will never ask for your OTP.
+        <strong>âš ï¸ Important:</strong> Never share this code with anyone. Summit Ridge Credit Union staff will never ask for your OTP.
       </div>
 
       <p>If you did not request this transfer, please ignore this email and contact our support team immediately.</p>
     </div>
     <div class="footer">
-      <p>&copy; 2026 Horizon Ridge Credit Union Bank. All rights reserved.</p>
+      <p>&copy; 2026 Summit Ridge Credit Union Bank. All rights reserved.</p>
       <p>This is an automated message. Please do not reply to this email.</p>
     </div>
   </div>
@@ -633,7 +633,7 @@ export function TransferPage() {
       }
       const emailResponse = await sendEmailAPI({
         to: profile.email,
-        subject: "Your Horizon Ridge Credit Union Transfer Verification Code",
+        subject: "Your Summit Ridge Credit Union Transfer Verification Code",
         html: htmlContent,
       });
       // Step 6: Store code reference and show OTP input
@@ -1323,3 +1323,4 @@ export function TransferPage() {
 }
 
 export default TransferPage;
+

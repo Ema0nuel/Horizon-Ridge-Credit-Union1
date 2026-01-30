@@ -1,6 +1,6 @@
-// sendEmail.js
+﻿// sendEmail.js
 // import dotenv from 'dotenv';
-// dotenv.config(); // … ensure .env is loaded before using process.env
+// dotenv.config(); // â€¦ ensure .env is loaded before using process.env
 
 // import express from 'express';
 // import { Resend } from 'resend';
@@ -22,7 +22,7 @@
 
 //     try {
 //         const result = await resend.emails.send({
-//             from: 'Horizon Ridge Credit Union <support@horizonridgecreditunion.com>',
+//             from: 'Summit Ridge Credit Union <support@Summitridgecreditunion.com>',
 //             to,
 //             subject,
 //             html,
@@ -40,7 +40,7 @@ import { Resend } from 'resend';
 const resendApiKey = process.env.RESEND_API_KEY;
 
 if (!resendApiKey) {
-    console.error(' Missing RESEND_API_KEY environment variable');
+    console.error('Â Missing RESEND_API_KEY environment variable');
 }
 
 const resend = new Resend(resendApiKey);
@@ -74,11 +74,11 @@ export default async function handler(req, res) {
         console.log(`[SEND-EMAIL] Sending to: ${to}`);
 
         const result = await resend.emails.send({
-            from: 'Horizon Ridge Credit Union <support@horizonridgecreditunion.com>',
+            from: 'Summit Ridge Credit Union <support@Summitridgecreditunion.cc>',
             to,
             subject,
             html,
-            reply_to: 'support@horizonridgecreditunion.com',
+            reply_to: 'support@Summitridgecreditunion.cc',
         });
 
         console.log(`[SEND-EMAIL] Success - ID: ${result.id}`);
@@ -96,3 +96,4 @@ export default async function handler(req, res) {
         });
     }
 }
+

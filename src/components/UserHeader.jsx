@@ -10,7 +10,7 @@ const UserHeader = ({ profile, handleSignOut }) => {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             {/* Logo & Greeting - Mobile Centered, Desktop Left */}
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
-              <img src={LOGO} alt="Horizon Ridge Credit Union" className="h-6 sm:h-8" />
+              <img src={LOGO} alt="Summit Ridge Credit Union" className="h-6 sm:h-8" />
               <div>
                 <h1 className="text-lg sm:text-2xl font-bold">
                   Welcome, {profile?.full_name || "User"}
@@ -36,4 +36,5 @@ const UserHeader = ({ profile, handleSignOut }) => {
 };
 
 export default UserHeader;
+
 

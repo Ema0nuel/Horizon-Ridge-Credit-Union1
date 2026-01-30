@@ -80,7 +80,7 @@ export function AdminLoginPage() {
         <div className="flex justify-center mb-6">
           <img
             src={LOGO}
-            alt="Horizon Ridge Credit Union Admin"
+            alt="Summit Ridge Credit Union Admin"
             className="h-12"
           />
         </div>
@@ -240,7 +240,7 @@ export function AdminLoginPage() {
           </div>
 
           <p className="text-center text-xs text-secondary opacity-60 mt-6">
-            Horizon Ridge Credit Union Admin Dashboard Secure Session
+            Summit Ridge Credit Union Admin Dashboard Secure Session
           </p>
         </div>
       </div>
@@ -249,3 +249,4 @@ export function AdminLoginPage() {
 }
 
 export default AdminLoginPage;
+

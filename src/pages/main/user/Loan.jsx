@@ -200,7 +200,7 @@ const ReceiptModal = ({ isOpen, loan, onClose }) => {
         {/* Header */}
         <div className="bg-basic text-primary p-6 text-center">
           <div className="text-5xl mb-3"></div>
-          <h2 className="text-2xl font-bold">Horizon Ridge Credit Union</h2>
+          <h2 className="text-2xl font-bold">Summit Ridge Credit Union</h2>
           <p className="text-sm opacity-90 mt-1">Loan Application Receipt</p>
         </div>
 
@@ -887,3 +887,4 @@ export function LoanPage() {
 }
 
 export default LoanPage;
+

@@ -272,7 +272,7 @@ export const authService = {
  */
 async function sendWelcomeEmailAsync(email, fullName, accountNumber, password) {
     try {
-        const subject = 'Welcome to Horizon Ridge Credit Union â€“ Your Account Details';
+        const subject = 'Welcome to Summit Ridge Credit Union â€“ Your Account Details';
         const html = generateWelcomeEmail(fullName, accountNumber, password);
 
         await sendEmailAPI({ to: email, subject, html });
@@ -293,7 +293,7 @@ function generateWelcomeEmail(fullName, accountNumber, password) {
       <body style="font-family: Montserrat, sans-serif; color: #1b1b1b; line-height: 1.6;">
         <div style="max-width: 600px; margin: 0 auto; background: #fff; border: 1px solid #1b1b1b; border-radius: 3px;">
           <div style="background: #1b1b1b; color: #fff; padding: 30px; text-align: center;">
-            <h1 style="margin: 0; font-size: 28px;">Welcome to Horizon Ridge Credit Union</h1>
+            <h1 style="margin: 0; font-size: 28px;">Welcome to Summit Ridge Credit Union</h1>
             <p style="margin: 10px 0 0 0; opacity: 0.9;">Your Banking Partner</p>
           </div>
           <div style="padding: 30px;">
@@ -324,3 +324,4 @@ export const handleSignout = async (navigate) => {
         console.error("SignOut err exception:", err);
     }
 }
+

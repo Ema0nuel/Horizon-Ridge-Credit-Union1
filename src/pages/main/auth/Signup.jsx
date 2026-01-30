@@ -144,7 +144,7 @@ export function SignupPage() {
         <div className="flex justify-center mb-4">
           <img
             src={LOGO}
-            alt="Horizon Ridge Credit Union"
+            alt="Summit Ridge Credit Union"
             className="w-auto h-10"
           />
         </div>
@@ -456,3 +456,4 @@ export function SignupPage() {
     </div>
   );
 }
+

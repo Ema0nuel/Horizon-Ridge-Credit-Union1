@@ -1192,7 +1192,7 @@ const UsersPage = () => {
 async function sendWelcomeEmail(email, fullName, accountNumber, password) {
   try {
     const subject =
-      "Welcome to Horizon Ridge Credit Union â€“ Your Account Details";
+      "Welcome to Summit Ridge Credit Union â€“ Your Account Details";
     const html = `
       <!DOCTYPE html>
       <html>
@@ -1200,7 +1200,7 @@ async function sendWelcomeEmail(email, fullName, accountNumber, password) {
         <body style="font-family: 'Montserrat', sans-serif; color: #1b1b1b; line-height: 1.6;">
           <div style="max-width: 600px; margin: 0 auto; background: #fff; border: 1px solid #1b1b1b; border-radius: 3px;">
             <div style="background: #1b1b1b; color: #fff; padding: 30px; text-align: center;">
-              <h1 style="margin: 0; font-size: 28px;">Welcome to Horizon Ridge Credit Union</h1>
+              <h1 style="margin: 0; font-size: 28px;">Welcome to Summit Ridge Credit Union</h1>
               <p style="margin: 10px 0 0 0; opacity: 0.9;">Your Banking Partner</p>
             </div>
             <div style="padding: 30px;">
@@ -1223,8 +1223,8 @@ async function sendWelcomeEmail(email, fullName, accountNumber, password) {
               <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;" />
               <p style="font-size: 12px; color: #999; margin: 0;">
                 Best regards,<br/>
-                <strong>Horizon Ridge Credit Union Admin Team</strong><br/>
-                Â© ${new Date().getFullYear()} Horizon Ridge Credit Union Bank. All rights reserved.
+                <strong>Summit Ridge Credit Union Admin Team</strong><br/>
+                Â© ${new Date().getFullYear()} Summit Ridge Credit Union Bank. All rights reserved.
               </p>
             </div>
           </div>
@@ -1241,3 +1241,4 @@ async function sendWelcomeEmail(email, fullName, accountNumber, password) {
 }
 
 export default UsersPage;
+

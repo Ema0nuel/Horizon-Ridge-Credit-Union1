@@ -24,10 +24,10 @@ export default function Navbar() {
           <Link to="/" className="flex items-center gap-2">
             <img
               src={LOGO}
-              alt="Horizon Ridge Credit Union"
+              alt="Summit Ridge Credit Union"
               className="w-auto h-10"
             />
-            Horizon Ridge Credit Union
+            Summit Ridge Credit Union
           </Link>
 
           {/* Desktop Links */}
@@ -105,3 +105,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

@@ -605,7 +605,7 @@ export function HomePage() {
                 index={0}
                 name="Sarah Johnson"
                 role="Business Owner"
-                text="Horizon Ridge Credit Union has transformed the way I manage my business finances. The mobile app is intuitive and support is always available."
+                text="Summit Ridge Credit Union has transformed the way I manage my business finances. The mobile app is intuitive and support is always available."
                 image={Testimonial1}
               />
               <TestimonialCard
@@ -640,7 +640,7 @@ export function HomePage() {
                 index={5}
                 name="David O'Brien"
                 role="Consultant"
-                text="Switched to Horizon Ridge Credit Union and never looked back. Security, speed, and service excellence."
+                text="Switched to Summit Ridge Credit Union and never looked back. Security, speed, and service excellence."
                 image={Testimonial6}
               />
             </div>
@@ -752,7 +752,7 @@ export function HomePage() {
               <BlogCard
                 index={2}
                 title="International Transfer Guide"
-                excerpt="Complete guide to sending money abroad with Horizon Ridge Credit Union - fast, secure, and transparent."
+                excerpt="Complete guide to sending money abroad with Summit Ridge Credit Union - fast, secure, and transparent."
                 date="Jan 10, 2026"
                 category="Guide"
                 image={BlogGuide}
@@ -835,7 +835,7 @@ export function HomePage() {
                 Ready to Get Started?
               </h2>
               <p className="text-xl text-primary/90 mb-8 max-w-2xl mx-auto">
-                Join millions of customers who trust Horizon Ridge Credit Union.
+                Join millions of customers who trust Summit Ridge Credit Union.
                 Open your account in minutes.
               </p>
 
@@ -863,3 +863,4 @@ export function HomePage() {
     </>
   );
 }
+
