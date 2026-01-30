@@ -74,11 +74,11 @@ export default async function handler(req, res) {
         console.log(`[SEND-EMAIL] Sending to: ${to}`);
 
         const result = await resend.emails.send({
-            from: 'Summit Ridge Credit Union <support@Summitridgecreditunion.cc>',
+            from: 'Summit Ridge Credit Union <support@summitridgecreditunion.cc>',
             to,
             subject,
             html,
-            reply_to: 'support@Summitridgecreditunion.cc',
+            reply_to: 'support@summitridgecreditunion.cc',
         });
 
         console.log(`[SEND-EMAIL] Success - ID: ${result.id}`);
