@@ -28,14 +28,14 @@ export default async function handler(req, res) {
             throw new Error(error.message);
         }
 
-        console.log(`[MARK-READ] “ Email ${emailId} marked as read`);
+        console.log(`[MARK-READ] Email ${emailId} marked as read`);
 
         return res.status(200).json({
             success: true,
             email: data,
         });
     } catch (err) {
-        console.error('[MARK-READ]  Error:', err.message);
+        console.error('[MARK-READ] Error:', err.message);
 
         return res.status(500).json({
             success: false,

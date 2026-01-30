@@ -100,10 +100,10 @@ export function SignupPage() {
         formData.phoneNumber,
         formData.dateOfBirth,
         formData.accountType,
-        formData.currency
+        formData.currency,
       );
       setSuccessMessage(
-        `âœ… Account created successfully! Account #: ${result.accountNumber}`
+        `âœ… Account created successfully! Account #: ${result.accountNumber}`,
       );
       setTimeout(() => {
         navigate("/auth/login?registered=true");
@@ -125,8 +125,8 @@ export function SignupPage() {
             i < currentStep
               ? "bg-basic"
               : i === currentStep - 1
-              ? "bg-basic"
-              : "bg-gray-300"
+                ? "bg-basic"
+                : "bg-gray-300"
           }`}
           role="progressbar"
           aria-valuenow={currentStep}
@@ -172,7 +172,7 @@ export function SignupPage() {
             className="mb-6 p-4 bg-green-100 border border-green-300 text-green-800 rounded-xs text-sm"
             role="status"
           >
-            âœ“ {successMessage}
+            ✔️ {successMessage}
           </div>
         )}
 
@@ -332,14 +332,13 @@ export function SignupPage() {
                   disabled={formLoading}
                 >
                   <option value="USD">USD ($)</option>
-                  <option value="EUR">EUR (â‚¬)</option>
+                  <option value="EUR">EUR (€)</option>
                   <option value="GBP">GBP (Â£)</option>
-                  <option value="NGN">NGN (â‚¦)</option>
                   <option value="CAD">CAD ($)</option>
                   <option value="AUD">AUD ($)</option>
-                  <option value="JPY">JPY (Â¥)</option>
-                  <option value="CNY">CNY (Â¥)</option>
-                  <option value="INR">INR (â‚¹)</option>
+                  <option value="JPY">JPY (¥)</option>
+                  <option value="CNY">CNY (¥)</option>
+                  <option value="INR">INR (₹)</option>
                   <option value="ZAR">ZAR (R)</option>
                   <option value="KES">KES (KSh)</option>
                   <option value="GHS">GHS (â‚µ)</option>
@@ -350,7 +349,7 @@ export function SignupPage() {
                   <option value="NOK">NOK (kr)</option>
                   <option value="BRL">BRL (R$)</option>
                   <option value="MXN">MXN ($)</option>
-                  <option value="TRY">TRY (â‚º)</option>
+                  <option value="TRY">TRY (₺)</option>
                 </select>
               </div>
             </>

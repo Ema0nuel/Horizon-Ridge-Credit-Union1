@@ -21,7 +21,7 @@ export default async function handler(req, res) {
             throw new Error(error.message);
         }
 
-        console.log(`[GET-DETAILS] “ Retrieved email ${emailId}`);
+        console.log(`[GET-DETAILS] Retrieved email ${emailId}`);
 
         return res.status(200).json({
             success: true,
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
             },
         });
     } catch (err) {
-        console.error('[GET-DETAILS]  Error:', err.message);
+        console.error('[GET-DETAILS] Error:', err.message);
 
         return res.status(500).json({
             success: false,

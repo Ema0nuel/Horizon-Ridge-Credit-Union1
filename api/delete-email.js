@@ -26,14 +26,14 @@ export default async function handler(req, res) {
             throw new Error(error.message);
         }
 
-        console.log(`[DELETE-EMAIL] “ Email ${emailId} deleted`);
+        console.log(`[DELETE-EMAIL] Email ${emailId} deleted`);
 
         return res.status(200).json({
             success: true,
             message: 'Email deleted',
         });
     } catch (err) {
-        console.error('[DELETE-EMAIL]  Error:', err.message);
+        console.error('[DELETE-EMAIL] Error:', err.message);
 
         return res.status(500).json({
             success: false,

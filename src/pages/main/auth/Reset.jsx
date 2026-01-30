@@ -23,10 +23,6 @@ export function ResetPasswordPage() {
       try {
         // ✅ Method 1: Check URL parameter
         if (token) {
-          console.log(
-            "[RESET] Token from URL params:",
-            token.substring(0, 20) + "..."
-          );
           setValidToken(true);
           setIsValidating(false);
           return;
@@ -36,10 +32,8 @@ export function ResetPasswordPage() {
         const { data } = await supabase.auth.getSession();
 
         if (data?.session) {
-          console.log("[RESET] ✓ Valid Supabase session found");
           setValidToken(true);
         } else {
-          console.log("[RESET] ❌ No valid session or token");
           setValidToken(false);
         }
       } catch (err) {
@@ -73,10 +67,8 @@ export function ResetPasswordPage() {
     }
 
     try {
-      console.log("[RESET] Attempting password update...");
       await updatePassword(password);
       setSuccess(true);
-      console.log("[RESET] ✓ Password reset successful");
       setTimeout(() => navigate("/auth/login"), 2000);
     } catch (err) {
       console.error("[RESET] Password update error:", err);

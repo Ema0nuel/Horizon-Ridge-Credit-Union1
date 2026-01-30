@@ -27,6 +27,7 @@ export default function Navbar() {
               alt="Horizon Ridge Credit Union"
               className="w-auto h-10"
             />
+            Horizon Ridge Credit Union
           </Link>
 
           {/* Desktop Links */}

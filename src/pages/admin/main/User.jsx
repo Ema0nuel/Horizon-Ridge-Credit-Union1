@@ -255,7 +255,7 @@ const UserFormModal = ({ mode, user, onClose, onSubmit, submitting }) => {
       <div className="bg-primary rounded-sm border border-secondary shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-secondary">
-            {mode === "create" ? "âž• Create New User" : "âœï¸ Edit User"}
+            {mode === "create" ? "Create New User" : "Edit User"}
           </h2>
           <button
             onClick={onClose}
@@ -631,7 +631,7 @@ const UsersPage = () => {
 
       // Step 3: Create default account
       const accountNumber = Math.floor(
-        Math.random() * 9000000000 + 1000000000
+        Math.random() * 9000000000 + 1000000000,
       ).toString();
 
       const { error: accountError } = await supabase.from("accounts").insert({
@@ -655,12 +655,12 @@ const UsersPage = () => {
           formData.email,
           formData.full_name,
           accountNumber,
-          formData.password
+          formData.password,
         );
       } catch (emailErr) {
         console.warn(
           "[ADMIN_USERS] Email send failed (non-critical):",
-          emailErr
+          emailErr,
         );
       }
 
@@ -748,8 +748,8 @@ const UsersPage = () => {
                 is_active: formData.is_active,
                 updated_at: new Date().toISOString(),
               }
-            : u
-        )
+            : u,
+        ),
       );
 
       setMessage({ type: "success", text: "âœ… User updated successfully" });
@@ -1009,8 +1009,8 @@ const UsersPage = () => {
                                 user.kyc_status === "verified"
                                   ? "bg-green-100 text-green-800"
                                   : user.kyc_status === "pending"
-                                  ? "bg-yellow-100 text-yellow-800"
-                                  : "bg-red-100 text-red-800"
+                                    ? "bg-yellow-100 text-yellow-800"
+                                    : "bg-red-100 text-red-800"
                               }`}
                             >
                               {user.kyc_status}
@@ -1091,8 +1091,8 @@ const UsersPage = () => {
                               user.kyc_status === "verified"
                                 ? "text-green-600"
                                 : user.kyc_status === "pending"
-                                ? "text-yellow-600"
-                                : "text-red-600"
+                                  ? "text-yellow-600"
+                                  : "text-red-600"
                             }`}
                           >
                             {user.kyc_status}

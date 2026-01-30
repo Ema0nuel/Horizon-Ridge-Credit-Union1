@@ -2,6 +2,9 @@
 import { adminLogout } from "../../pages/admin/auth/adminAuth";
 import { useNavigate } from "react-router-dom";
 import LOGO from "../../assets/images/Logo-abn.png";
+import ConsoleGuard from "../../utils/consoleGuard";
+import ConsoleWarning from "../../utils/consoleWarning";
+import SecurityMonitor from "../../utils/securityMonitor";
 
 const Header = ({ adminEmail, onMenuToggle }) => {
   const navigate = useNavigate();
@@ -19,6 +22,30 @@ const Header = ({ adminEmail, onMenuToggle }) => {
 
     updateGreeting();
     const interval = setInterval(updateGreeting, 60000);
+
+    // Dev mode only: Show security warnings
+    if (ConsoleGuard.isDevMode) {
+      ConsoleWarning.warn(
+        "⚠️ ADMIN ACCESS DETECTED",
+        "You are accessing a restricted administrative interface.",
+        "danger",
+        {
+          emoji: "🔐",
+          metadata: {
+            panel: "Admin Dashboard",
+            accessTime: new Date().toISOString(),
+          },
+        },
+      );
+    } else {
+      // Production: Silent logging
+      SecurityMonitor.auditAdminAction(
+        "dashboard_accessed",
+        "admin_panel",
+        "success",
+      );
+    }
+
     return () => clearInterval(interval);
   }, []);
 

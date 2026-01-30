@@ -77,7 +77,7 @@ const TransferCard = ({ type, title, description, isSelected, onClick }) => (
       <h3 className="font-semibold text-secondary text-base">{title}</h3>
       <p className="text-xs text-secondary opacity-70 mt-1">{description}</p>
     </div>
-    {isSelected && <div className="ml-auto text-basic font-bold">âœ“</div>}
+    {isSelected && <div className="ml-auto text-basic font-bold">✔️</div>}
   </button>
 );
 
@@ -256,7 +256,7 @@ const ReceiptModal = ({ isOpen, transaction, account, profile, onClose }) => {
       <div className="bg-primary rounded-sm border border-secondary shadow-2xl max-w-md w-full max-h-96 overflow-y-auto">
         {/* Receipt Header */}
         <div className="bg-basic text-primary p-6 text-center">
-          <div className="text-5xl mb-3">ðŸ¦</div>
+          <div className="text-5xl mb-3"></div>
           <h2 className="text-2xl font-bold">Horizon Ridge Credit Union</h2>
           <p className="text-sm opacity-90 mt-1">Transaction Receipt</p>
         </div>
@@ -265,7 +265,7 @@ const ReceiptModal = ({ isOpen, transaction, account, profile, onClose }) => {
         <div className="p-6 space-y-4">
           {/* Status */}
           <div className="text-center py-3 bg-green-50 border border-green-200 rounded-sm">
-            <p className="text-sm font-semibold text-green-800">âœ“ Completed</p>
+            <p className="text-sm font-semibold text-green-800">✔️ Completed</p>
           </div>
 
           {/* Transaction Details */}
@@ -335,8 +335,8 @@ const ReceiptModal = ({ isOpen, transaction, account, profile, onClose }) => {
               {transaction.transaction_type === "local"
                 ? "Local Transfer"
                 : transaction.transaction_type === "international"
-                ? "International Transfer"
-                : "Wire Transfer"}
+                  ? "International Transfer"
+                  : "Wire Transfer"}
             </p>
           </div>
         </div>
@@ -406,8 +406,8 @@ const generateOTPEmailHTML = (code, recipientName, amount, transferType) => `
             transferType === "local"
               ? "Local Transfer"
               : transferType === "international"
-              ? "International Transfer"
-              : "Wire Transfer"
+                ? "International Transfer"
+                : "Wire Transfer"
           }</span>
         </div>
         <div class="detail-row">
@@ -595,10 +595,7 @@ export function TransferPage() {
     setMessage({ type: "", text: "" });
 
     try {
-      console.log("[TRANSFER] Starting OTP request flow...");
-
       // Step 1: Fetch available OTP code
-      console.log("[TRANSFER] Fetching available transfer_otp code...");
       const { data: codeData, error: codeError } = await supabase
         .from("codes")
         .select("*")
@@ -612,61 +609,33 @@ export function TransferPage() {
         throw new Error("No available OTP codes. Please try again later.");
       }
 
-      console.log("[TRANSFER] âœ“ OTP code fetched:", {
-        codeId: codeData.id,
-        code: codeData.code.substring(0, 2) + "****",
-        expiresAt: codeData.expires_at,
-      });
-
       // Step 2: Get the from account for currency
       const fromAccount = accounts.find((a) => a.id === formData.fromAccountId);
       if (!fromAccount) {
         throw new Error("Selected account not found");
       }
-
-      console.log("[TRANSFER] âœ“ From account identified:", {
-        accountNumber: fromAccount.account_number,
-        currency: fromAccount.currency,
-        balance: fromAccount.balance,
-      });
-
       // Step 3: Verify user email exists
       if (!profile?.email) {
         throw new Error("User email not found. Please update your profile.");
       }
 
-      // Step 4: Generate OTP email HTML
-      console.log("[TRANSFER] Generating OTP email HTML...");
       const htmlContent = generateOTPEmailHTML(
         codeData.code,
         formData.recipientName || profile?.full_name || "User",
         `${fromAccount.currency} ${parseFloat(formData.amount).toFixed(2)}`,
-        activeTransferType
+        activeTransferType,
       );
 
       if (!htmlContent || htmlContent.length === 0) {
         throw new Error(
-          "Failed to generate email content. generateOTPEmailHTML() returned empty."
+          "Failed to generate email content. generateOTPEmailHTML() returned empty.",
         );
       }
-
-      console.log("[TRANSFER] âœ“ Email HTML generated:", {
-        length: htmlContent.length,
-      });
-
-      // Step 5: CALL sendEmailAPI WITH PATTERN: { to, subject, html }
-      console.log("[TRANSFER] Calling sendEmailAPI with pattern...");
       const emailResponse = await sendEmailAPI({
         to: profile.email,
         subject: "Your Horizon Ridge Credit Union Transfer Verification Code",
         html: htmlContent,
       });
-
-      console.log("[TRANSFER] âœ“ Email sent successfully:", {
-        messageId: emailResponse.messageId,
-        to: emailResponse.to,
-      });
-
       // Step 6: Store code reference and show OTP input
       setCodeRecord(codeData);
       setOtpCodeId(codeData.id);
@@ -674,7 +643,7 @@ export function TransferPage() {
 
       setMessage({
         type: "success",
-        text: `âœ“ OTP sent to ${profile.email}. Check your inbox (valid for 5 minutes).`,
+        text: `OTP sent to ${profile.email}. Check your inbox (valid for 5 minutes).`,
       });
     } catch (err) {
       console.error("[TRANSFER] OTP request failed:", {
@@ -944,9 +913,9 @@ export function TransferPage() {
         <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-secondary opacity-70">
           <button
             onClick={() => navigate("/dashboard")}
-            className="hover:opacity-100 font-semibold"
+            className="hover:opacity-100 font-bold"
           >
-            Dashboard
+            &lt; Dashboard
           </button>
           <span>/</span>
           <span className="font-semibold opacity-100">Transfer Money</span>
@@ -1235,7 +1204,7 @@ export function TransferPage() {
                   <div className="space-y-6">
                     <div className="p-4 sm:p-6 rounded-sm border-l-4 border-yellow-500 bg-yellow-50">
                       <h3 className="font-bold text-secondary mb-2 text-base">
-                        â³ Transfer Pending
+                        Transfer Pending
                       </h3>
                       <p className="text-secondary text-sm opacity-80">
                         Your transfer is pending verification. Click the button
@@ -1311,7 +1280,7 @@ export function TransferPage() {
                           <LoadingSpinner size="sm" /> Completing...
                         </>
                       ) : (
-                        "âœ“ Complete Transfer"
+                        "Complete Transfer"
                       )}
                     </button>
                   </div>
@@ -1354,4 +1323,3 @@ export function TransferPage() {
 }
 
 export default TransferPage;
-

@@ -367,7 +367,7 @@ export default async function handler(req, res) {
             throw new Error(`Resend fetch error: ${fetchError.message}`);
         }
 
-        console.log(`[RECEIVE-EMAIL] “ Fetched from: ${emailContent.from}`);
+        console.log(`[RECEIVE-EMAIL] Fetched from: ${emailContent.from}`);
 
         // [2] Prepare data for Supabase
         const insertData = {
@@ -395,14 +395,14 @@ export default async function handler(req, res) {
             throw new Error(`Supabase insert error: ${storeError.message}`);
         }
 
-        console.log(`[RECEIVE-EMAIL] “ Stored in DB - ID: ${storedEmail.id}`);
+        console.log(`[RECEIVE-EMAIL] Stored in DB - ID: ${storedEmail.id}`);
 
         return res.status(200).json({
             success: true,
             emailId: storedEmail.id,
         });
     } catch (err) {
-        console.error('[RECEIVE-EMAIL]  Error:', err.message);
+        console.error('[RECEIVE-EMAIL] Error:', err.message);
 
         return res.status(500).json({
             success: false,

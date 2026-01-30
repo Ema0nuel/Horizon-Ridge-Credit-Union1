@@ -142,7 +142,9 @@ const FeatureNotAvailableModal = ({ isOpen, onClose }) => {
           <p className="text-blue-900 text-xs font-semibold mb-2">
             📧 Contact Support:
           </p>
-          <p className="text-blue-800 text-sm">support@abnAmro.com</p>
+          <p className="text-blue-800 text-sm">
+            support@horizonridgecreditunion.com
+          </p>
         </div>
 
         {/* Close Button */}
@@ -403,7 +405,6 @@ export function CardsPage() {
   }, [navigate]);
 
   const handleRequestCard = () => {
-    console.log("[CARDS] Request Card clicked - Feature not available");
     setShowFeatureModal(true);
   };
 
@@ -431,7 +432,7 @@ export function CardsPage() {
         <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-secondary opacity-70">
           <button
             onClick={() => navigate("/dashboard")}
-            className="hover:opacity-100 font-semibold"
+            className="hover:opacity-100 font-bold"
           >
             Dashboard
           </button>
@@ -530,7 +531,7 @@ export function CardsPage() {
                       <p className="text-secondary font-bold text-lg">
                         {primaryAccount.currency}{" "}
                         {parseFloat(
-                          primaryAccount.daily_transaction_limit || 10000
+                          primaryAccount.daily_transaction_limit || 10000,
                         ).toFixed(2)}
                       </p>
                     </div>

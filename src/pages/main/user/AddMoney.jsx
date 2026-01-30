@@ -1,4 +1,5 @@
-﻿import React, { useState, useEffect } from "react";
+﻿/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../Services/supabase/supabaseClient";
 import { sendEmailAPI } from "../../../Services/api";
@@ -162,7 +163,7 @@ const BankCard = ({ name, description, isSelected, onClick, bankColor }) => (
       <h3 className="font-semibold text-secondary text-sm">{name}</h3>
       <p className="text-xs text-secondary opacity-70 mt-1">{description}</p>
     </div>
-    {isSelected && <div className="text-basic font-bold text-lg">âœ“</div>}
+    {isSelected && <div className="text-basic font-bold text-lg">✔️</div>}
   </button>
 );
 
@@ -194,7 +195,7 @@ const generateDepositOTPEmailHTML = (code, amount, bankName) => `
 <body>
   <div class="container">
     <div class="header">
-      <h1>ðŸ“¥ Deposit Verification</h1>
+      <h1>Deposit Verification</h1>
       <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 14px;">One-Time Password (OTP)</p>
     </div>
     <div class="content">
@@ -246,7 +247,7 @@ const ReceiptModal = ({ isOpen, transaction, account, profile, onClose }) => {
         <div className="p-6 space-y-4">
           <div className="text-center py-3 bg-yellow-50 border border-yellow-200 rounded-sm">
             <p className="text-sm font-semibold text-yellow-800">
-              â³ Pending Admin Approval
+              Pending Admin Approval
             </p>
           </div>
           <div className="space-y-3 text-sm border-b border-secondary pb-4">
@@ -359,7 +360,6 @@ export function AddMoneyPage() {
         }
 
         if (!session?.user?.id) {
-          console.log("[ADD_MONEY] No active session");
           navigate("/auth/login", { replace: true });
           return;
         }
@@ -376,7 +376,7 @@ export function AddMoneyPage() {
         if (profileError) {
           console.error(
             "[ADD_MONEY] Profile fetch error:",
-            profileError?.message
+            profileError?.message,
           );
           throw new Error(`Profile load failed: ${profileError?.message}`);
         }
@@ -404,14 +404,14 @@ export function AddMoneyPage() {
         const { data: accountsData, error: accountsError } = await supabase
           .from("accounts")
           .select(
-            "id, user_id, account_number, account_type, currency, balance, status, is_deleted"
+            "id, user_id, account_number, account_type, currency, balance, status, is_deleted",
           )
           .eq("user_id", uid);
 
         if (accountsError) {
           console.error(
             "[ADD_MONEY] Accounts fetch error:",
-            accountsError?.message
+            accountsError?.message,
           );
           throw new Error(`Accounts load failed: ${accountsError?.message}`);
         }
@@ -419,10 +419,10 @@ export function AddMoneyPage() {
         const normAccounts = Array.isArray(accountsData)
           ? accountsData
           : accountsData
-          ? [accountsData]
-          : [];
+            ? [accountsData]
+            : [];
         const activeAccounts = normAccounts.filter(
-          (a) => !a.is_deleted && a.status === "active"
+          (a) => !a.is_deleted && a.status === "active",
         );
 
         if (mounted) {
@@ -525,7 +525,7 @@ export function AddMoneyPage() {
       }
 
       const selectedMethod = bankMethods.find(
-        (m) => m.id === formData.bankMethod
+        (m) => m.id === formData.bankMethod,
       );
       const toAccount = accounts.find((a) => a.id === formData.toAccountId);
 
@@ -539,7 +539,7 @@ export function AddMoneyPage() {
         html: generateDepositOTPEmailHTML(
           codeData.code,
           `${toAccount.currency} ${parseFloat(formData.amount).toFixed(2)}`,
-          selectedMethod?.label || "Bank Deposit"
+          selectedMethod?.label || "Bank Deposit",
         ),
       };
 
@@ -547,13 +547,7 @@ export function AddMoneyPage() {
         throw new Error("Email payload incomplete");
       }
 
-      console.log(
-        "[ADD_MONEY] OTP fetch successful, sending email to:",
-        emailPayload.to
-      );
-
       const emailResponse = await sendEmailAPI(emailPayload);
-      console.log("[ADD_MONEY] Email sent:", emailResponse);
 
       setCodeRecord(codeData);
       setOtpCodeId(codeData.id);
@@ -602,7 +596,7 @@ export function AddMoneyPage() {
       if (updateCodeError) {
         console.error(
           "[ADD_MONEY] Code update error:",
-          updateCodeError?.message
+          updateCodeError?.message,
         );
         throw new Error(`Failed to mark OTP used: ${updateCodeError?.message}`);
       }
@@ -644,7 +638,7 @@ export function AddMoneyPage() {
       if (txnError) {
         console.error(
           "[ADD_MONEY] Transaction insert error:",
-          txnError?.message
+          txnError?.message,
         );
         throw new Error(`Transaction creation failed: ${txnError?.message}`);
       }
@@ -652,8 +646,6 @@ export function AddMoneyPage() {
       if (!txnData) {
         throw new Error("Transaction created but no data returned");
       }
-
-      console.log("[ADD_MONEY] Transaction created:", txnData.reference_number);
 
       setTransactionData(txnData);
       setTransactionStatus("pending");
@@ -760,9 +752,9 @@ export function AddMoneyPage() {
         <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-secondary opacity-70">
           <button
             onClick={() => navigate("/dashboard")}
-            className="hover:opacity-100 font-semibold"
+            className="hover:opacity-100 font-bold"
           >
-            Dashboard
+            &lt; Dashboard
           </button>
           <span>/</span>
           <span className="font-semibold opacity-100">Add Money</span>
@@ -892,7 +884,7 @@ export function AddMoneyPage() {
                             <span className="font-semibold text-secondary capitalize">
                               {
                                 bankMethods.find(
-                                  (m) => m.id === formData.bankMethod
+                                  (m) => m.id === formData.bankMethod,
                                 )?.label
                               }
                             </span>
@@ -1003,4 +995,3 @@ export function AddMoneyPage() {
 }
 
 export default AddMoneyPage;
-

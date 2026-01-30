@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../../../Services/supabase/supabaseClient";
@@ -215,10 +216,9 @@ export function DashboardPage() {
                 filter: `user_id=eq.${id}`,
               },
               (payload) => {
-                console.log("[DASHBOARD] accounts realtime payload:", payload);
                 // Refetch or update local state based on payload
                 loadDataForUser(id);
-              }
+              },
             )
             .subscribe();
         } else {
@@ -227,7 +227,6 @@ export function DashboardPage() {
 
         // Listen for auth changes to react to sign-in/out
         authSubscription = supabase.auth.onAuthStateChange((event, session) => {
-          console.log("[DASHBOARD] auth state changed:", event);
           const newId = session?.user?.id || null;
           setUserId(newId);
           if (newId) {
@@ -260,13 +259,11 @@ export function DashboardPage() {
         }
       } catch (e) {
         // ignore
-        console.log(e);
       }
     };
   }, []);
 
   const handleSignOut = async () => {
-    console.log("[DASHBOARD] Signing out via supabase");
     try {
       const { error } = await supabase.auth.signOut();
       if (error) {
@@ -421,7 +418,9 @@ export function DashboardPage() {
                     <p className="text-xs text-secondary opacity-60 uppercase tracking-wider">
                       Status
                     </p>
-                    <p className="font-semibold text-green-600 mt-1 capitalize text-sm">
+                    <p
+                      className={`${primaryAccount.status === "active" ? "text-green-600" : "text-red-500"} font-semibold mt-1 capitalize text-sm`}
+                    >
                       {primaryAccount.status}
                     </p>
                   </div>
@@ -445,7 +444,7 @@ export function DashboardPage() {
                     {parseFloat(
                       primaryAccount.available_balance ||
                         primaryAccount.balance ||
-                        0
+                        0,
                     ).toFixed(2)}
                   </p>
                 </div>

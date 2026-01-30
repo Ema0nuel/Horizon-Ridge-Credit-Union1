@@ -370,11 +370,11 @@ const StepIndicator = ({ currentStep, steps }) => (
               index < currentStep
                 ? "bg-green-500 text-white"
                 : index === currentStep
-                ? "bg-basic text-primary"
-                : "bg-gray-200 text-gray-600"
+                  ? "bg-basic text-primary"
+                  : "bg-gray-200 text-gray-600"
             }`}
           >
-            {index < currentStep ? "âœ“" : index + 1}
+            {index < currentStep ? "✔️" : index + 1}
           </div>
           {index < steps.length - 1 && (
             <div
@@ -394,8 +394,8 @@ const StepIndicator = ({ currentStep, steps }) => (
             index === currentStep
               ? "text-basic"
               : index < currentStep
-              ? "text-green-600"
-              : "text-secondary opacity-50"
+                ? "text-green-600"
+                : "text-secondary opacity-50"
           }`}
         >
           {step}
@@ -578,8 +578,6 @@ export function TaxRefundPage() {
     setMessage({ type: "", text: "" });
 
     try {
-      console.log("[TAX_REFUND] Creating tax refund transaction...");
-
       const selectedAccount = accounts.find((a) => a.id === formData.accountId);
       const refundAmount = parseFloat(formData.refundAmount);
 
@@ -617,12 +615,6 @@ export function TaxRefundPage() {
         .single();
 
       if (txnError) throw txnError;
-
-      console.log("[TAX_REFUND] âœ“ Transaction created:", {
-        transactionId: txnData.id,
-        referenceNumber: txnData.reference_number,
-        amount: txnData.amount,
-      });
 
       setTransactionData(txnData);
       setShowReceipt(true);
@@ -677,7 +669,7 @@ export function TaxRefundPage() {
           <div class="section">
             <div class="section-title">Request Status</div>
             <div class="status">
-              <strong>â³ Processing</strong><br>
+              <strong>Processing</strong><br>
               <small>Awaiting admin approval & verification</small>
             </div>
           </div>
@@ -693,7 +685,7 @@ export function TaxRefundPage() {
             <div class="field">
               <span class="field-label">Submitted Date:</span>
               <span class="field-value">${new Date(
-                transactionData.created_at
+                transactionData.created_at,
               ).toLocaleDateString()}</span>
             </div>
           </div>
@@ -701,8 +693,8 @@ export function TaxRefundPage() {
           <div class="amount-box">
             <div class="amount-label">Refund Amount</div>
             <div class="amount-value">${transactionData.currency} ${parseFloat(
-      transactionData.amount
-    ).toFixed(2)}</div>
+              transactionData.amount,
+            ).toFixed(2)}</div>
           </div>
 
           <div class="section">
@@ -765,7 +757,7 @@ export function TaxRefundPage() {
     link.setAttribute("href", url);
     link.setAttribute(
       "download",
-      `tax-refund-receipt-${transactionData.reference_number}.html`
+      `tax-refund-receipt-${transactionData.reference_number}.html`,
     );
     link.style.visibility = "hidden";
 
@@ -822,9 +814,9 @@ export function TaxRefundPage() {
         <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-secondary opacity-70">
           <button
             onClick={() => navigate("/dashboard")}
-            className="hover:opacity-100 font-semibold"
+            className="hover:opacity-100 font-bold"
           >
-            Dashboard
+            &lt; Dashboard
           </button>
           <span>/</span>
           <span className="font-semibold opacity-100">Tax Refund</span>
@@ -839,8 +831,8 @@ export function TaxRefundPage() {
             </h1>
           </div>
           <p className="text-sm sm:text-base text-secondary opacity-70">
-            File your tax refund request with Horizon Ridge Credit Union. We'll report to the tax
-            authority and credit your account upon approval.
+            File your tax refund request with Horizon Ridge Credit Union. We'll
+            report to the tax authority and credit your account upon approval.
           </p>
         </div>
 
@@ -878,9 +870,9 @@ export function TaxRefundPage() {
                     <div className="text-sm text-blue-900">
                       <p className="font-semibold mb-1">About This Process:</p>
                       <p>
-                        Bank reports withheld tax to authority â†’ System compares
-                        tax paid vs. owed â†’ Refund is calculated â†’ Authority
-                        approves â†’ Funds credited to your account
+                        Bank reports withheld tax to authority â†’ System
+                        compares tax paid vs. owed â†’ Refund is calculated â†’
+                        Authority approves â†’ Funds credited to your account
                       </p>
                     </div>
                   </div>
@@ -932,7 +924,7 @@ export function TaxRefundPage() {
                           <span className="font-bold text-basic">
                             {selectedAccount.currency}{" "}
                             {parseFloat(selectedAccount.balance || 0).toFixed(
-                              2
+                              2,
                             )}
                           </span>
                         </div>
@@ -1254,4 +1246,3 @@ export function TaxRefundPage() {
 }
 
 export default TaxRefundPage;
-

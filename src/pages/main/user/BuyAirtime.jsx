@@ -225,7 +225,7 @@ const NetworkCard = ({ network, isSelected, onClick }) => (
       <h3 className="font-semibold text-secondary text-sm">{network.name}</h3>
       <p className="text-xs text-secondary opacity-70 mt-1">{network.desc}</p>
     </div>
-    {isSelected && <div className="text-basic font-bold text-lg">âœ“</div>}
+    {isSelected && <div className="text-basic font-bold text-lg">✔️</div>}
   </button>
 );
 
@@ -325,7 +325,7 @@ const ReceiptModal = ({ isOpen, transaction, account, profile, onClose }) => {
           {/* Status */}
           <div className="text-center py-3 bg-yellow-50 border border-yellow-200 rounded-sm">
             <p className="text-sm font-semibold text-yellow-800">
-              â³ Pending Admin Approval
+              Pending Admin Approval
             </p>
           </div>
 
@@ -428,7 +428,7 @@ const formatPhoneNumber = (value) => {
   if (cleaned.length <= 7) return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
   return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 7)}-${cleaned.slice(
     7,
-    11
+    11,
   )}`;
 };
 
@@ -601,12 +601,13 @@ export function BuyAirtimePage() {
 
       await sendEmailAPI({
         to: profile?.email,
-        subject: "Your Horizon Ridge Credit Union Airtime Purchase Verification Code",
+        subject:
+          "Your Horizon Ridge Credit Union Airtime Purchase Verification Code",
         html: generateAirtimeOTPEmailHTML(
           codeData.code,
           formData.phoneNumber,
           `$${parseFloat(formData.amount).toFixed(2)}`,
-          network?.name || "Network"
+          network?.name || "Network",
         ),
       });
 
@@ -761,9 +762,9 @@ export function BuyAirtimePage() {
         <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-secondary opacity-70">
           <button
             onClick={() => navigate("/dashboard")}
-            className="hover:opacity-100 font-semibold"
+            className="hover:opacity-100 font-bold"
           >
-            Dashboard
+            &lt; Dashboard
           </button>
           <span>/</span>
           <span className="font-semibold opacity-100">Buy Airtime</span>
@@ -1045,4 +1046,3 @@ export function BuyAirtimePage() {
 }
 
 export default BuyAirtimePage;
-

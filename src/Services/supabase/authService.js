@@ -21,7 +21,6 @@ export const authService = {
     async signInWithAccountNumber(accountNumber, password) {
         try {
             // Step 1: Find account by number
-            console.log('[AUTH_LOGIN] Step 1: Looking up account:', accountNumber);
             const { data: account, error: accountError } = await withTimeout(
                 supabase
                     .from('accounts')
@@ -42,10 +41,8 @@ export const authService = {
             }
 
             const userId = account.user_id;
-            console.log('[AUTH_LOGIN] Step 1 SUCCESS - user_id:', userId);
 
             // Step 2: Get email from user_profiles
-            console.log('[AUTH_LOGIN] Step 2: Looking up user profile for user_id:', userId);
             const { data: profile, error: profileError } = await withTimeout(
                 supabase
                     .from('user_profiles')
@@ -65,10 +62,6 @@ export const authService = {
                 throw new Error('User profile is incomplete.');
             }
 
-            console.log('[AUTH_LOGIN] Step 2 SUCCESS - email:', profile.email);
-
-            // Step 3: Sign in with Supabase Auth
-            console.log('[AUTH_LOGIN] Step 3: Signing in with Supabase Auth');
             const { data: authData, error: authError } = await withTimeout(
                 supabase.auth.signInWithPassword({
                     email: profile.email,
@@ -86,9 +79,6 @@ export const authService = {
                 throw new Error('Sign in failed unexpectedly.');
             }
 
-            console.log('[AUTH_LOGIN] Step 3 SUCCESS - user_id:', authData.user.id);
-            console.log('[AUTH_LOGIN] ===== LOGIN COMPLETE =====');
-
             return { user: authData.user, session: authData.session };
         } catch (err) {
             console.error('[AUTH_LOGIN] ===== LOGIN FAILED =====');
@@ -102,8 +92,6 @@ export const authService = {
      */
     async signUp(email, password, fullName, phoneNumber, dateOfBirth, accountType, currency) {
         try {
-            console.log('[AUTH_SIGNUP] Step 1: Creating Supabase Auth user');
-
             const { data: authData, error: authError } = await withTimeout(
                 supabase.auth.signUp({
                     email,
@@ -129,11 +117,6 @@ export const authService = {
                 throw new Error('Failed to create user account');
             }
 
-            console.log('[AUTH_SIGNUP] Step 1 SUCCESS - userId:', userId);
-
-            // Step 2: Insert profile
-            console.log('[AUTH_SIGNUP] Step 2: Creating user profile');
-
             const { error: profileError } = await withTimeout(
                 supabase.from('user_profiles').insert({
                     id: userId,
@@ -152,11 +135,6 @@ export const authService = {
                 console.error('[AUTH_SIGNUP] Step 2 FAILED:', profileError.message);
                 throw new Error(`Failed to create profile: ${profileError.message}`);
             }
-
-            console.log('[AUTH_SIGNUP] Step 2 SUCCESS');
-
-            // Step 3: Generate and insert account
-            console.log('[AUTH_SIGNUP] Step 3: Creating account');
 
             const accountNumber = Math.floor(Math.random() * 9000000000 + 1000000000).toString();
 
@@ -182,16 +160,9 @@ export const authService = {
                 throw new Error(`Failed to create account: ${accountError.message}`);
             }
 
-            console.log('[AUTH_SIGNUP] Step 3 SUCCESS - account:', accountNumber);
-
-            // Step 4: Send email (non-blocking)
-            console.log('[AUTH_SIGNUP] Step 4: Sending welcome email');
-
             sendWelcomeEmailAsync(email, fullName, accountNumber, password).catch((err) => {
                 console.warn('[AUTH_SIGNUP] Email send failed (non-critical):', err.message);
             });
-
-            console.log('[AUTH_SIGNUP] ===== SIGNUP COMPLETE =====');
 
             return { success: true, accountNumber, userId };
         } catch (err) {
@@ -203,8 +174,6 @@ export const authService = {
 
     async resetPasswordRequest(email) {
         try {
-            console.log('[AUTH_RESET] Requesting password reset for:', email);
-
             const { error } = await withTimeout(
                 supabase.auth.resetPasswordForEmail(email, {
                     redirectTo: `${window.location.origin}/auth/reset-password`,
@@ -213,7 +182,6 @@ export const authService = {
 
             if (error) throw error;
 
-            console.log('[AUTH_RESET] SUCCESS');
             return { success: true };
         } catch (err) {
             console.error('[AUTH_RESET] FAILED:', err.message);
@@ -223,13 +191,9 @@ export const authService = {
 
     async updatePassword(newPassword) {
         try {
-            console.log('[AUTH_UPDATE_PWD] Updating password');
-
             const { error } = await withTimeout(supabase.auth.updateUser({ password: newPassword }));
 
             if (error) throw error;
-
-            console.log('[AUTH_UPDATE_PWD] SUCCESS');
             return { success: true };
         } catch (err) {
             console.error('[AUTH_UPDATE_PWD] FAILED:', err.message);
@@ -239,13 +203,9 @@ export const authService = {
 
     async signOut() {
         try {
-            console.log('[AUTH_SIGNOUT] Signing out');
-
             const { error } = await withTimeout(supabase.auth.signOut());
 
             if (error) throw error;
-
-            console.log('[AUTH_SIGNOUT] SUCCESS');
             return { success: true };
         } catch (err) {
             console.error('[AUTH_SIGNOUT] FAILED:', err.message);
@@ -316,8 +276,6 @@ async function sendWelcomeEmailAsync(email, fullName, accountNumber, password) {
         const html = generateWelcomeEmail(fullName, accountNumber, password);
 
         await sendEmailAPI({ to: email, subject, html });
-
-        console.log('[EMAIL_SERVICE] Welcome email sent to:', email);
     } catch (err) {
         console.error('[EMAIL_SERVICE] Failed to send email:', err.message);
         throw err;

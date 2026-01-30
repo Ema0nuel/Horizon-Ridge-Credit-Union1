@@ -229,3 +229,15 @@ CREATE TABLE public.user_profiles (
   },
   "private": true
 }
+
+
+â³
+ðŸ¦
+âœ“
+onClick={() => navigate("/dashboard")}
+&lt; 
+â‚¬
+â‚º
+â‚¹
+ â€¢
+âœï¸

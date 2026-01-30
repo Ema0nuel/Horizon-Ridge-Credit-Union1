@@ -40,9 +40,9 @@ export default async function handler(req, res) {
         supabase: supabaseStatus,
         resend: resendStatus,
         environment: {
-            supabase_url: supabaseUrl ? '“' : '—',
-            service_role_key: supabaseServiceRoleKey ? '“' : '—',
-            resend_api_key: resendApiKey ? '“' : '—',
+            supabase_url: supabaseUrl ? 'yes' : 'No',
+            service_role_key: supabaseServiceRoleKey ? 'yes' : 'No',
+            resend_api_key: resendApiKey ? 'yes' : 'No',
         },
     });
 }

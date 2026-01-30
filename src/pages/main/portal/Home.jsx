@@ -291,7 +291,7 @@ export function HomePage() {
             aria-hidden="true"
           />
 
-          {/* Gradient Overlay: Light Left â†’ Dark Right */}
+          {/* Gradient Overlay: Light Left of Dark Right */}
           <div
             className="absolute inset-0"
             style={{
@@ -318,7 +318,7 @@ export function HomePage() {
               <div className="flex flex-col gap-6">
                 <div>
                   <span className="inline-block px-4 py-2 bg-primary/30 text-primary rounded-xs text-sm font-bold mb-4 backdrop-blur-sm border border-primary/50">
-                    âœ¨ Welcome to Banking Excellence
+                    Welcome to Banking Excellence
                   </span>
                 </div>
 
@@ -415,7 +415,7 @@ export function HomePage() {
               <StatCard number="8M+" label="Happy Customers" delay={0.1} />
               <StatCard number="50+" label="Countries Served" delay={0.2} />
               <StatCard
-                number="â‚¬2.3T"
+                number="$2.3B"
                 label="Assets Under Management"
                 delay={0.3}
               />

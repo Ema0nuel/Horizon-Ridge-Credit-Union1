@@ -313,10 +313,10 @@ const AccountDetailsTab = ({
                   account.status === "active"
                     ? "text-green-600"
                     : account.status === "frozen"
-                    ? "text-yellow-600"
-                    : account.status === "suspended"
-                    ? "text-red-600"
-                    : "text-gray-600"
+                      ? "text-yellow-600"
+                      : account.status === "suspended"
+                        ? "text-red-600"
+                        : "text-gray-600"
                 }`}
               >
                 {account.status}
@@ -341,7 +341,7 @@ const AccountDetailsTab = ({
               <p className="text-xl font-bold text-basic mt-2">
                 {account.currency}{" "}
                 {parseFloat(
-                  account.available_balance || account.balance || 0
+                  account.available_balance || account.balance || 0,
                 ).toFixed(2)}
               </p>
             </div>
@@ -418,8 +418,8 @@ const AccountDetailsTab = ({
                 {account.status === "closed"
                   ? "Account Closed"
                   : account.status === "frozen"
-                  ? "Account Frozen"
-                  : "Account Status: " + account.status}
+                    ? "Account Frozen"
+                    : "Account Status: " + account.status}
               </div>
             )}
           </div>
@@ -496,7 +496,7 @@ const UserSettingsTab = ({
   });
 
   const [profileImage, setProfileImage] = useState(
-    profile?.profile_image_url || null
+    profile?.profile_image_url || null,
   );
   const [previewUrl, setPreviewUrl] = useState(null);
   const [errors, setErrors] = useState({});
@@ -663,7 +663,7 @@ const UserSettingsTab = ({
                   type="button"
                   onClick={() =>
                     handleUploadImage(
-                      document.querySelector('input[type="file"]').files?.[0]
+                      document.querySelector('input[type="file"]').files?.[0],
                     )
                   }
                   disabled={imageUploading}
@@ -874,10 +874,10 @@ const RiskScoreTab = ({ profile, loading }) => {
                   riskLevel <= 20
                     ? "#10b981"
                     : riskLevel <= 50
-                    ? "#f59e0b"
-                    : riskLevel <= 75
-                    ? "#f97316"
-                    : "#ef4444"
+                      ? "#f59e0b"
+                      : riskLevel <= 75
+                        ? "#f97316"
+                        : "#ef4444"
                 }
                 strokeWidth="8"
                 strokeDasharray={`${(riskLevel / 100) * 345.6} 345.6`}
@@ -906,10 +906,10 @@ const RiskScoreTab = ({ profile, loading }) => {
           {riskLevel <= 20
             ? "Your account has a healthy risk profile"
             : riskLevel <= 50
-            ? "Monitor your account activity"
-            : riskLevel <= 75
-            ? "Your account requires attention"
-            : "Your account is at critical risk"}
+              ? "Monitor your account activity"
+              : riskLevel <= 75
+                ? "Your account requires attention"
+                : "Your account is at critical risk"}
         </p>
       </div>
 
@@ -942,10 +942,10 @@ const RiskScoreTab = ({ profile, loading }) => {
                 profile?.kyc_status === "verified"
                   ? "text-green-600"
                   : profile?.kyc_status === "rejected"
-                  ? "text-red-600"
-                  : profile?.kyc_status === "suspended"
-                  ? "text-orange-600"
-                  : "text-yellow-600"
+                    ? "text-red-600"
+                    : profile?.kyc_status === "suspended"
+                      ? "text-orange-600"
+                      : "text-yellow-600"
               }`}
             >
               {profile?.kyc_status}
@@ -1064,7 +1064,7 @@ const AccountStatusEditTab = ({
               value={JSON.stringify(
                 formData.metadata?.risk_flags || [],
                 null,
-                2
+                2,
               )}
               onChange={(e) => {
                 try {
@@ -1334,8 +1334,8 @@ export function UserDetailsPage() {
                   suspended_at: new Date().toISOString(),
                 },
               }
-            : acc
-        )
+            : acc,
+        ),
       );
     } catch (err) {
       console.error("[USER_DETAILS] Suspend error:", err);
@@ -1371,8 +1371,8 @@ export function UserDetailsPage() {
                   reactivated_at: new Date().toISOString(),
                 },
               }
-            : acc
-        )
+            : acc,
+        ),
       );
     } catch (err) {
       console.error("[USER_DETAILS] Reactivate error:", err);
@@ -1414,9 +1414,9 @@ export function UserDetailsPage() {
         <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-secondary opacity-70">
           <button
             onClick={() => navigate("/dashboard")}
-            className="hover:opacity-100 font-semibold"
+            className="hover:opacity-100 font-bold"
           >
-            Dashboard
+            &lt; Dashboard
           </button>
           <span>/</span>
           <span className="font-semibold opacity-100">Account Details</span>

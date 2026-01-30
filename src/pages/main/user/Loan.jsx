@@ -120,7 +120,7 @@ const LoanTypeCard = ({
         {minAmount} - {maxAmount}
       </p>
     </div>
-    {isSelected && <div className="ml-auto text-basic font-bold">âœ“</div>}
+    {isSelected && <div className="ml-auto text-basic font-bold">✔️</div>}
   </button>
 );
 
@@ -209,7 +209,7 @@ const ReceiptModal = ({ isOpen, loan, onClose }) => {
           {/* Status */}
           <div className="text-center py-3 bg-yellow-50 border border-yellow-200 rounded-sm">
             <p className="text-sm font-semibold text-yellow-800">
-              â³ Pending Admin Review
+              Pending Admin Review
             </p>
           </div>
 
@@ -353,7 +353,7 @@ export function LoanPage() {
           .eq("transaction_type", "loan")
           .in(
             "from_account_id",
-            (accountsData || []).map((a) => a.id)
+            (accountsData || []).map((a) => a.id),
           )
           .order("created_at", { ascending: false });
 
@@ -419,7 +419,7 @@ export function LoanPage() {
 
     try {
       const targetAccount = accounts.find(
-        (a) => a.id === formData.targetAccountId
+        (a) => a.id === formData.targetAccountId,
       );
       if (!targetAccount) {
         throw new Error("Target account not found");
@@ -504,29 +504,29 @@ export function LoanPage() {
       type: "personal",
       title: "Personal Loan",
       desc: "For personal expenses",
-      min: "â‚¬1,000",
-      max: "â‚¬50,000",
+      min: "$1,000",
+      max: "$50,000",
     },
     {
       type: "business",
       title: "Business Loan",
       desc: "For business growth",
-      min: "â‚¬5,000",
-      max: "â‚¬100,000",
+      min: "$5,000",
+      max: "$100,000",
     },
     {
       type: "education",
       title: "Education Loan",
       desc: "For educational needs",
-      min: "â‚¬2,000",
-      max: "â‚¬75,000",
+      min: "$2,000",
+      max: "$75,000",
     },
   ];
 
   const accountOptions = accounts.map((acc) => ({
     value: acc.id,
     label: `${acc.account_number} - ${acc.currency} ${parseFloat(
-      acc.balance || 0
+      acc.balance || 0,
     ).toFixed(2)}`,
   }));
 
@@ -557,9 +557,9 @@ export function LoanPage() {
         <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-secondary opacity-70">
           <button
             onClick={() => navigate("/dashboard")}
-            className="hover:opacity-100 font-semibold"
+            className="hover:opacity-100 font-bold"
           >
-            Dashboard
+            &lt; Dashboard
           </button>
           <span>/</span>
           <span className="font-semibold opacity-100">Loan</span>
@@ -748,7 +748,7 @@ export function LoanPage() {
                       <div className="flex justify-between pb-3 border-b border-secondary opacity-70">
                         <span className="text-secondary">Amount:</span>
                         <span className="font-semibold text-basic text-lg">
-                          â‚¬{parseFloat(formData.loanAmount || 0).toFixed(2)}
+                          ${parseFloat(formData.loanAmount || 0).toFixed(2)}
                         </span>
                       </div>
                       <div className="flex justify-between pb-3 border-b border-secondary opacity-70">
@@ -756,7 +756,7 @@ export function LoanPage() {
                         <span className="font-semibold text-secondary">
                           {
                             loanTermOptions.find(
-                              (t) => t.value === formData.loanTerm
+                              (t) => t.value === formData.loanTerm,
                             )?.label
                           }
                         </span>
@@ -887,4 +887,3 @@ export function LoanPage() {
 }
 
 export default LoanPage;
-

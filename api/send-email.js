@@ -81,14 +81,14 @@ export default async function handler(req, res) {
             reply_to: 'support@horizonridgecreditunion.com',
         });
 
-        console.log(`[SEND-EMAIL] “ Success - ID: ${result.id}`);
+        console.log(`[SEND-EMAIL] Success - ID: ${result.id}`);
 
         return res.status(200).json({
             success: true,
             result,
         });
     } catch (err) {
-        console.error('[SEND-EMAIL]  Error:', err.message);
+        console.error('[SEND-EMAIL] Error:', err.message);
 
         return res.status(500).json({
             success: false,

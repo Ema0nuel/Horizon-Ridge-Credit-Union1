@@ -95,17 +95,10 @@ export function ContactPage() {
     setGlobalError("");
 
     if (!validateForm()) {
-      console.log("[CONTACT] Form validation failed");
       return;
     }
 
     setLoading(true);
-    console.log("[CONTACT] Submitting contact form:", {
-      email: formData.email,
-      subject: formData.subject,
-      category: formData.category,
-    });
-
     try {
       // Insert into Supabase contacts table
       const { data, error } = await supabase
@@ -130,8 +123,6 @@ export function ContactPage() {
         throw new Error(error.message || "Failed to submit contact form");
       }
 
-      console.log("[CONTACT] Submission successful:", data);
-
       // Reset form
       setFormData({
         fullName: "",
@@ -144,7 +135,7 @@ export function ContactPage() {
       setErrors({});
       setSubmitted(true);
       setSuccessMessage(
-        "Thank you for contacting us! We'll get back to you within 24-48 hours."
+        "Thank you for contacting us! We'll get back to you within 24-48 hours.",
       );
 
       // Auto-hide success message after 5 seconds
@@ -158,7 +149,7 @@ export function ContactPage() {
     } catch (err) {
       console.error("[CONTACT] Error:", err);
       setGlobalError(
-        err.message || "Something went wrong. Please try again later."
+        err.message || "Something went wrong. Please try again later.",
       );
     } finally {
       setLoading(false);
@@ -173,7 +164,11 @@ export function ContactPage() {
           {/* Header Section */}
           <div className="text-center mb-12">
             <div className="flex justify-center mb-6">
-              <img src={LOGO} alt="Horizon Ridge Credit Union" className="h-10 sm:h-12" />
+              <img
+                src={LOGO}
+                alt="Horizon Ridge Credit Union"
+                className="h-10 sm:h-12"
+              />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-secondary mb-3">
               Get in Touch
@@ -520,7 +515,7 @@ export function ContactPage() {
               onClick={() => navigate("/")}
               className="text-sm text-basic font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-basic rounded-xs px-2 py-1"
             >
-              â† Back to Home
+              &lt; Back to Home
             </button>
           </div>
         </div>
@@ -541,4 +536,3 @@ async function getClientIP() {
     return null;
   }
 }
-

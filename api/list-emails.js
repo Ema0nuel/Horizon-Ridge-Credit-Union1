@@ -21,14 +21,14 @@ export default async function handler(req, res) {
             throw new Error(error.message);
         }
 
-        console.log(`[LIST-EMAILS] “ Retrieved ${data?.length || 0} emails`);
+        console.log(`[LIST-EMAILS] Retrieved ${data?.length || 0} emails`);
 
         return res.status(200).json({
             success: true,
             emails: data || [],
         });
     } catch (err) {
-        console.error('[LIST-EMAILS]  Error:', err.message);
+        console.error('[LIST-EMAILS] Error:', err.message);
 
         return res.status(500).json({
             success: false,

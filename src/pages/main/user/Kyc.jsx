@@ -64,8 +64,8 @@ const KYCStepIcon = ({ step, isCompleted, isActive }) => {
         isCompleted
           ? "bg-green-600 text-white"
           : isActive
-          ? "bg-basic text-primary"
-          : "bg-gray-200 text-gray-600"
+            ? "bg-basic text-primary"
+            : "bg-gray-200 text-gray-600"
       }`}
     >
       {isCompleted ? (
@@ -857,7 +857,7 @@ const StepDocumentUpload = ({ formData, onFileChange, errors }) => {
                     {
                       target: { files: [] },
                     },
-                    "document_front"
+                    "document_front",
                   )
                 }
                 className="text-xs text-red-600 hover:text-red-700 font-semibold"
@@ -926,7 +926,7 @@ const StepDocumentUpload = ({ formData, onFileChange, errors }) => {
                     {
                       target: { files: [] },
                     },
-                    "document_back"
+                    "document_back",
                   )
                 }
                 className="text-xs text-red-600 hover:text-red-700 font-semibold"
@@ -1275,9 +1275,9 @@ export function KYCPage() {
         <div className="mb-6 flex items-center gap-2 text-xs sm:text-sm text-secondary opacity-70">
           <button
             onClick={() => navigate("/dashboard")}
-            className="hover:opacity-100 font-semibold"
+            className="hover:opacity-100 font-bold"
           >
-            Dashboard
+            &lt; Dashboard
           </button>
           <span>/</span>
           <span className="font-semibold opacity-100">KYC Verification</span>

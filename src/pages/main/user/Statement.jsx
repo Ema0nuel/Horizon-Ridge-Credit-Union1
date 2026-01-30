@@ -467,7 +467,7 @@ export function StatementPage() {
             .select("*")
             .in(
               "from_account_id",
-              (accountsData || []).map((a) => a.id)
+              (accountsData || []).map((a) => a.id),
             )
             .order("created_at", { ascending: false });
 
@@ -589,7 +589,7 @@ export function StatementPage() {
   const handleViewDetails = (transaction) => {
     setSelectedTransaction(transaction);
     const fromAccount = accounts.find(
-      (a) => a.id === transaction.from_account_id
+      (a) => a.id === transaction.from_account_id,
     );
     setSelectedAccount(fromAccount);
     setShowDetailsModal(true);
@@ -625,9 +625,9 @@ export function StatementPage() {
       ...rows.map((row) =>
         row
           .map((cell) =>
-            typeof cell === "string" && cell.includes(",") ? `"${cell}"` : cell
+            typeof cell === "string" && cell.includes(",") ? `"${cell}"` : cell,
           )
-          .join(",")
+          .join(","),
       ),
     ].join("\n");
 
@@ -638,7 +638,7 @@ export function StatementPage() {
     link.setAttribute("href", url);
     link.setAttribute(
       "download",
-      `statements-${new Date().toISOString().split("T")[0]}.csv`
+      `statements-${new Date().toISOString().split("T")[0]}.csv`,
     );
     link.style.visibility = "hidden";
 
@@ -667,13 +667,13 @@ export function StatementPage() {
 
   const totalAmount = sortedTransactions.reduce(
     (sum, t) => sum + parseFloat(t.amount || 0),
-    0
+    0,
   );
   const completedCount = sortedTransactions.filter(
-    (t) => t.status === "completed"
+    (t) => t.status === "completed",
   ).length;
   const pendingCount = sortedTransactions.filter(
-    (t) => t.status === "pending"
+    (t) => t.status === "pending",
   ).length;
 
   return (
@@ -688,9 +688,9 @@ export function StatementPage() {
         <div className="mb-6 flex items-center gap-2 text-sm text-secondary opacity-70">
           <button
             onClick={() => navigate("/dashboard")}
-            className="hover:opacity-100"
+            className="hover:opacity-100 font-bold"
           >
-            Dashboard
+            &lt; Dashboard
           </button>
           <span>/</span>
           <span className="opacity-100 font-semibold">Statements</span>
@@ -770,7 +770,7 @@ export function StatementPage() {
                 ? "No transactions"
                 : `${(currentPage - 1) * pageSize + 1}–${Math.min(
                     currentPage * pageSize,
-                    sortedTransactions.length
+                    sortedTransactions.length,
                   )} of ${sortedTransactions.length}`}
             </span>
           </div>
@@ -849,7 +849,7 @@ export function StatementPage() {
               <tbody>
                 {paginatedTransactions.map((transaction) => {
                   const fromAccount = accounts.find(
-                    (a) => a.id === transaction.from_account_id
+                    (a) => a.id === transaction.from_account_id,
                   );
                   return (
                     <tr
@@ -864,7 +864,7 @@ export function StatementPage() {
                             {
                               hour: "2-digit",
                               minute: "2-digit",
-                            }
+                            },
                           )}
                         </span>
                       </td>
@@ -918,7 +918,7 @@ export function StatementPage() {
           {paginatedTransactions.length > 0 ? (
             paginatedTransactions.map((transaction) => {
               const fromAccount = accounts.find(
-                (a) => a.id === transaction.from_account_id
+                (a) => a.id === transaction.from_account_id,
               );
               return (
                 <div
@@ -1002,7 +1002,7 @@ export function StatementPage() {
               {Array.from({ length: totalPages }, (_, i) => i + 1)
                 .slice(
                   Math.max(0, currentPage - 2),
-                  Math.min(totalPages, currentPage + 1)
+                  Math.min(totalPages, currentPage + 1),
                 )
                 .map((page) => (
                   <button

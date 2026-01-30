@@ -26,11 +26,9 @@ export function LoginPage() {
     }
 
     setLocalLoading(true);
-    console.log("[LOGIN] Attempting login for account:", accountNumber);
 
     try {
       await signIn(accountNumber, password);
-      console.log("[LOGIN] Sign in succeeded");
       // no direct navigation here; redirect handled by useAuthRedirect observing user state
       setLocalLoading(false);
     } catch (err) {

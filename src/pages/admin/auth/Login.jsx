@@ -45,15 +45,12 @@ export function AdminLoginPage() {
     }
 
     setLoading(true);
-    console.log("[ADMIN LOGIN] Attempting authentication");
 
     try {
       // Simulate auth delay (in production, could call backend API)
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       if (validateAdminLogin(email, password)) {
-        console.log("[ADMIN LOGIN] Authentication successful");
-
         // Store remembered email if checked
         if (rememberMe) {
           localStorage.setItem("admin_remembered_email", email);
@@ -81,7 +78,11 @@ export function AdminLoginPage() {
       <div className="w-full max-w-md bg-primary rounded-sm border border-secondary shadow-lg p-8">
         {/* Logo */}
         <div className="flex justify-center mb-6">
-          <img src={LOGO} alt="Horizon Ridge Credit Union Admin" className="h-12" />
+          <img
+            src={LOGO}
+            alt="Horizon Ridge Credit Union Admin"
+            className="h-12"
+          />
         </div>
 
         {/* Header */}
@@ -230,7 +231,7 @@ export function AdminLoginPage() {
         <div className="mt-8 border-t border-secondary pt-6">
           <div className="bg-blue-50 rounded-sm border border-blue-200 p-4">
             <p className="text-xs font-semibold text-blue-900 mb-2">
-              âš ï¸ Restricted Access
+              Restricted Access
             </p>
             <p className="text-xs text-blue-800 opacity-90">
               This portal is restricted to authorized administrators only.
@@ -239,7 +240,7 @@ export function AdminLoginPage() {
           </div>
 
           <p className="text-center text-xs text-secondary opacity-60 mt-6">
-            Horizon Ridge Credit Union Admin Dashboard â€¢ Secure Session
+            Horizon Ridge Credit Union Admin Dashboard Secure Session
           </p>
         </div>
       </div>
@@ -248,4 +249,3 @@ export function AdminLoginPage() {
 }
 
 export default AdminLoginPage;
-

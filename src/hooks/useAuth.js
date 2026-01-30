@@ -21,7 +21,6 @@ export function useAuth() {
                     setProfile(profileData);
                     const accountsData = await authService.getUserAccounts(session.user.id);
                     setAccounts(accountsData);
-                    console.log('[USEAUTH] Init complete - user:', session.user.id);
                 }
             } catch (err) {
                 console.error('[USEAUTH] Init error:', err.message);
@@ -33,7 +32,6 @@ export function useAuth() {
 
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
             async (event, session) => {
-                console.log('[USEAUTH] Auth state changed:', event);
 
                 if (event === 'SIGNED_OUT') {
                     setUser(null);
@@ -47,7 +45,6 @@ export function useAuth() {
                         setProfile(profileData);
                         const accountsData = await authService.getUserAccounts(session.user.id);
                         setAccounts(accountsData);
-                        console.log('[USEAUTH] Subscription update complete');
                     } catch (err) {
                         console.error('[USEAUTH] State change error:', err.message);
                         setError(err.message);
@@ -67,15 +64,13 @@ export function useAuth() {
 
             // store auth state immediately
             setUser(result.user);
-            console.log('[USEAUTH] signIn - user set immediately:', result.user.id);
+
 
             const profileData = await authService.getUserProfile(result.user.id);
             setProfile(profileData);
-            console.log('[USEAUTH] signIn - profile loaded');
 
             const accountsData = await authService.getUserAccounts(result.user.id);
             setAccounts(accountsData);
-            console.log('[USEAUTH] signIn - accounts loaded');
 
             return result;
         } catch (err) {
@@ -138,7 +133,6 @@ export function useAuth() {
             setUser(null);
             setProfile(null);
             setAccounts([]);
-            console.log('[USEAUTH] signOut complete');
         } catch (err) {
             console.error('[USEAUTH] signOut error:', err.message);
             setError(err.message);

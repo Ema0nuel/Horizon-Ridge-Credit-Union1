@@ -25,7 +25,6 @@ export function useEmailManager() {
 
             if (fetchError) throw fetchError;
 
-            console.log(`📬 Loaded ${data?.length || 0} emails from inbox`);
             setEmails(data || []);
         } catch (err) {
             console.error('❌ Refresh inbox error:', err.message);
@@ -42,7 +41,6 @@ export function useEmailManager() {
         try {
             const storedSent = localStorage.getItem('sent_emails');
             const sent = storedSent ? JSON.parse(storedSent) : [];
-            console.log(`📤 Loaded ${sent.length} sent emails`);
             setSentEmails(sent);
         } catch (err) {
             console.error('❌ Refresh sent error:', err.message);
@@ -64,7 +62,6 @@ export function useEmailManager() {
                 }
 
                 // Send via API
-                console.log('📧 Sending email...');
                 await sendEmailAPI({ to, subject, html });
 
                 // Store in localStorage for tracking
@@ -84,7 +81,6 @@ export function useEmailManager() {
 
                 setSentEmails(allSent);
                 setSuccess(`✓ Email sent successfully to ${to}`);
-                console.log(`✓ Email sent to ${to}`);
 
                 return sentEmail;
             } catch (err) {
@@ -113,7 +109,6 @@ export function useEmailManager() {
                 )
             );
 
-            console.log(`✓ Email ${emailId} marked as read`);
             setSuccess('Email marked as read');
         } catch (err) {
             console.error('❌ Mark as read error:', err.message);
@@ -138,7 +133,6 @@ export function useEmailManager() {
             if (deleteError) throw deleteError;
 
             setEmails((prev) => prev.filter((email) => email.id !== emailId));
-            console.log(`✓ Email ${emailId} deleted`);
             setSuccess('Email deleted');
         } catch (err) {
             console.error('❌ Delete email error:', err.message);
@@ -157,7 +151,6 @@ export function useEmailManager() {
         refreshSent();
 
         // Subscribe to real-time updates from Supabase
-        console.log('🔄 Setting up real-time subscription for inbound_emails...');
         const channel = supabase
             .channel('inbound_emails_realtime')
             .on(
@@ -168,21 +161,17 @@ export function useEmailManager() {
                     table: 'inbound_emails',
                 },
                 (payload) => {
-                    console.log('🔔 Real-time update received:', payload.eventType);
 
                     if (payload.eventType === 'INSERT') {
-                        console.log('📨 New email received:', payload.new.subject);
                         setEmails((prev) => [payload.new, ...prev]);
                         setSuccess(`📨 New email: ${payload.new.subject}`);
                     } else if (payload.eventType === 'UPDATE') {
-                        console.log('✏️ Email updated:', payload.new.id);
                         setEmails((prev) =>
                             prev.map((email) =>
                                 email.id === payload.new.id ? payload.new : email
                             )
                         );
                     } else if (payload.eventType === 'DELETE') {
-                        console.log('🗑️ Email deleted:', payload.old.id);
                         setEmails((prev) =>
                             prev.filter((email) => email.id !== payload.old.id)
                         );
@@ -191,14 +180,11 @@ export function useEmailManager() {
             )
             .subscribe((status) => {
                 if (status === 'SUBSCRIBED') {
-                    console.log('✓ Real-time subscription active');
-                } else {
-                    console.log('❌ Real-time subscription status:', status);
+                    return;
                 }
             });
 
         return () => {
-            console.log('Cleaning up real-time subscription');
             supabase.removeChannel(channel);
         };
     }, [refreshInbox, refreshSent]);

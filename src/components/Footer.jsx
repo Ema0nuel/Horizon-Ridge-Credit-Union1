@@ -43,7 +43,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Branding */}
           <div className="flex flex-col gap-4">
-            <img src={LOGO} alt="Horizon Ridge Credit Union" className="w-32 h-8" />
+            <img
+              src={LOGO}
+              alt="Horizon Ridge Credit Union"
+              className="w-8 h-auto"
+            />
             <p className="text-sm opacity-80">
               Leading financial services for generations.
             </p>
@@ -127,7 +131,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs opacity-60">
-            Â© {currentYear} Horizon Ridge Credit Union Bank NV. All rights reserved.
+            ©{currentYear} Horizon Ridge Credit Union Bank. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs">
             <a
@@ -160,4 +164,3 @@ export default function Footer() {
     </footer>
   );
 }
-
