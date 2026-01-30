@@ -213,7 +213,7 @@ const ReceiptModal = ({
       <div className="bg-primary rounded-sm border border-secondary shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         {/* Receipt Header */}
         <div className="bg-basic text-primary p-6 text-center">
-          <div className="text-5xl mb-3">ðŸ“‹</div>
+          <div className="text-5xl mb-3"></div>
           <h2 className="text-2xl font-bold">Tax Refund Request</h2>
           <p className="text-sm opacity-90 mt-1">Application Receipt</p>
         </div>
@@ -662,7 +662,7 @@ export function TaxRefundPage() {
       <body>
         <div class="container">
           <div class="header">
-            <h1>ðŸ“‹ Tax Refund Request Receipt</h1>
+            <h1>Tax Refund Request Receipt</h1>
             <p>Horizon Ridge Credit Union Bank</p>
           </div>
 

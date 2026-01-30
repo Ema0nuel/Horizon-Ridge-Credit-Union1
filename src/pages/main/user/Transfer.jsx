@@ -387,7 +387,7 @@ const generateOTPEmailHTML = (code, recipientName, amount, transferType) => `
 <body>
   <div class="container">
     <div class="header">
-      <h1>ðŸ” Transfer Verification</h1>
+      <h1>Transfer Verification</h1>
       <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 14px;">One-Time Password (OTP)</p>
     </div>
     <div class="content">
