@@ -434,7 +434,7 @@ export const pagesData = [
                         {
                             icon: "Mail",
                             title: "Email Support",
-                            description: "Send your questions to support@Summitridgecreditunion.com. We respond within 4 business hours.",
+                            description: "Send your questions to support@summitridgecreditunion.cc. We respond within 4 business hours.",
                         },
                         {
                             icon: "Phone",

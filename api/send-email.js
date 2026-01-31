@@ -22,7 +22,7 @@
 
 //     try {
 //         const result = await resend.emails.send({
-//             from: 'Summit Ridge Credit Union <support@Summitridgecreditunion.com>',
+//             from: 'Summit Ridge Credit Union <support@summitridgecreditunion.cc>',
 //             to,
 //             subject,
 //             html,

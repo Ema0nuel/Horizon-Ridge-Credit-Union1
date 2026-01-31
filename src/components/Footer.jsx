@@ -109,10 +109,10 @@ export default function Footer() {
               <li className="flex items-start gap-2">
                 <Mail size={16} className="mt-1 flex-shrink-0 text-basic" />
                 <a
-                  href="mailto:support@Summitridgecreditunion.com"
+                  href="mailto:support@summitridgecreditunion.cc"
                   className="text-sm opacity-80 hover:text-basic hover:opacity-100 transition-all"
                 >
-                  support@Summitridgecreditunion.com
+                  support@summitridgecreditunion.cc
                 </a>
               </li>
               <li className="flex items-start gap-2">

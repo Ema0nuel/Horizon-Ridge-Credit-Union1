@@ -143,7 +143,7 @@ const FeatureNotAvailableModal = ({ isOpen, onClose }) => {
             ðŸ“§ Contact Support:
           </p>
           <p className="text-blue-800 text-sm">
-            support@Summitridgecreditunion.com
+            support@summitridgecreditunion.cc
           </p>
         </div>
 

@@ -725,7 +725,7 @@ export function HomePage() {
                 </h2>
               </div>
               <Link
-                to="/blog"
+                to="/services"
                 className="flex items-center gap-2 text-basic font-bold hover:gap-3 transition-all"
               >
                 View All <ArrowRight size={20} />
@@ -863,4 +863,3 @@ export function HomePage() {
     </>
   );
 }
-

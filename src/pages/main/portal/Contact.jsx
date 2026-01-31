@@ -484,10 +484,10 @@ export function ContactPage() {
                 <div className="text-center">
                   <div className="text-basic font-bold mb-2">Email</div>
                   <a
-                    href="mailto:support@Summitridgecreditunion.com"
+                    href="mailto:support@summitridgecreditunion.cc"
                     className="text-sm text-secondary hover:text-basic transition-colors"
                   >
-                    support@Summitridgecreditunion.com
+                    support@summitridgecreditunion.cc
                   </a>
                 </div>
                 <div className="text-center">
