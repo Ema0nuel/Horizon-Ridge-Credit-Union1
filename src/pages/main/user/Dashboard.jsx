@@ -348,7 +348,7 @@ export function DashboardPage() {
             </div>
             <div className="bg-primary rounded-sm border border-secondary p-4 sm:p-6 text-center">
               <p className="text-xs sm:text-sm text-secondary opacity-70 mb-2">
-                Balance
+                Available Balance
               </p>
               <p className="text-2xl sm:text-3xl font-bold text-basic">
                 $
@@ -437,7 +437,7 @@ export function DashboardPage() {
                 {/* Balance Display */}
                 <div className="mb-6 pb-6 border-t border-secondary pt-6">
                   <p className="text-xs text-secondary opacity-60 uppercase tracking-wider">
-                    Available Balance
+                    Gross Total Balance
                   </p>
                   <p className="text-3xl font-bold text-basic mt-2">
                     {primaryAccount.currency}{" "}
