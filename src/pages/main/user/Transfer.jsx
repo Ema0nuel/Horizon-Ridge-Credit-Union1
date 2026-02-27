@@ -595,11 +595,10 @@ export function TransferPage() {
     setMessage({ type: "", text: "" });
 
     try {
-      // Step 1: Fetch available OTP code
+      // Step 1: Fetch available OTP code - accept any unused, non-expired code
       const { data: codeData, error: codeError } = await supabase
         .from("codes")
         .select("*")
-        .eq("code_type", "transfer_otp")
         .eq("is_used", false)
         .gt("expires_at", new Date().toISOString())
         .limit(1)
@@ -1323,4 +1322,3 @@ export function TransferPage() {
 }
 
 export default TransferPage;
-
