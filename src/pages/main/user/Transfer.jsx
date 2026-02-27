@@ -684,15 +684,25 @@ export function TransferPage() {
       return;
     }
 
-    if (otpInput !== codeRecord?.code) {
-      setErrors({ otpCode: "Invalid OTP code" });
-      return;
-    }
-
     setSubmitting(true);
     setMessage({ type: "", text: "" });
 
     try {
+      // Verify code exists in database and matches the input
+      const { data: dbCodeData, error: dbCodeError } = await supabase
+        .from("codes")
+        .select("*")
+        .eq("code", otpInput.trim())
+        .eq("is_used", false)
+        .gt("expires_at", new Date().toISOString())
+        .single();
+
+      if (dbCodeError || !dbCodeData) {
+        setErrors({ otpCode: "Invalid or expired code" });
+        setSubmitting(false);
+        return;
+      }
+
       const fromAccount = accounts.find((a) => a.id === formData.fromAccountId);
       const transferAmount = parseFloat(formData.amount);
 
@@ -703,7 +713,7 @@ export function TransferPage() {
           used_at: new Date().toISOString(),
           used_by_user_id: userId,
         })
-        .eq("id", otpCodeId);
+        .eq("id", dbCodeData.id);
 
       const { data: txnData, error: txnError } = await supabase
         .from("transactions")

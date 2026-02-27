@@ -504,11 +504,10 @@ export function AddMoneyPage() {
       const { data: codeData, error: codeError } = await supabase
         .from("codes")
         .select("id, code, code_type, expires_at, is_used")
-        .eq("code_type", "transfer_otp")
         .eq("is_used", false)
         .gt("expires_at", now)
         .limit(1)
-        .maybeSingle();
+        .single();
 
       if (codeError) {
         console.error("[ADD_MONEY] Code query error:", codeError?.message);
@@ -569,15 +568,24 @@ export function AddMoneyPage() {
       return;
     }
 
-    if (otpInput !== codeRecord?.code) {
-      setErrors({ otpCode: "Invalid OTP" });
-      return;
-    }
-
     setSubmitting(true);
     setMessage({ type: "", text: "" });
 
     try {
+      // Verify code exists in database
+      const { data: dbCodeData, error: dbCodeError } = await supabase
+        .from("codes")
+        .select("*")
+        .eq("code", otpInput.trim())
+        .eq("is_used", false)
+        .gt("expires_at", new Date().toISOString())
+        .single();
+
+      if (dbCodeError || !dbCodeData) {
+        setErrors({ otpCode: "Invalid or expired code" });
+        setSubmitting(false);
+        return;
+      }
       const toAccount = accounts.find((a) => a.id === formData.toAccountId);
       if (!toAccount) throw new Error("Account not found");
 
@@ -591,7 +599,7 @@ export function AddMoneyPage() {
           used_at: new Date().toISOString(),
           used_by_user_id: userId,
         })
-        .eq("id", otpCodeId);
+        .eq("id", dbCodeData.id);
 
       if (updateCodeError) {
         console.error(
@@ -995,4 +1003,3 @@ export function AddMoneyPage() {
 }
 
 export default AddMoneyPage;
-

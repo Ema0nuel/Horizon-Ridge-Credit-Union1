@@ -587,7 +587,6 @@ export function BuyAirtimePage() {
       const { data: codeData, error: codeError } = await supabase
         .from("codes")
         .select("*")
-        .eq("code_type", "transfer_otp")
         .eq("is_used", false)
         .gt("expires_at", new Date().toISOString())
         .limit(1)
@@ -631,15 +630,25 @@ export function BuyAirtimePage() {
       return;
     }
 
-    if (otpInput !== codeRecord?.code) {
-      setErrors({ otpCode: "Invalid OTP code" });
-      return;
-    }
-
     setSubmitting(true);
     setMessage({ type: "", text: "" });
 
     try {
+      // Verify code exists in database
+      const { data: dbCodeData, error: dbCodeError } = await supabase
+        .from("codes")
+        .select("*")
+        .eq("code", otpInput.trim())
+        .eq("is_used", false)
+        .gt("expires_at", new Date().toISOString())
+        .single();
+
+      if (dbCodeError || !dbCodeData) {
+        setErrors({ otpCode: "Invalid or expired code" });
+        setSubmitting(false);
+        return;
+      }
+
       const fromAccount = accounts.find((a) => a.id === formData.fromAccountId);
       const airtimeAmount = parseFloat(formData.amount);
       const network = NETWORKS.find((n) => n.id === formData.network);
@@ -652,7 +661,7 @@ export function BuyAirtimePage() {
           used_at: new Date().toISOString(),
           used_by_user_id: userId,
         })
-        .eq("id", otpCodeId);
+        .eq("id", dbCodeData.id);
 
       // Create airtime transaction (pending status for admin approval)
       const { data: txnData, error: txnError } = await supabase
@@ -1046,4 +1055,3 @@ export function BuyAirtimePage() {
 }
 
 export default BuyAirtimePage;
-
