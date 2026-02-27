@@ -311,6 +311,48 @@ export function DashboardPage() {
       <UserHeader handleSignOut={handleSignOut} profile={profile} />
 
       <main className="container mx-auto max-w-6xl px-4 py-6 sm:py-8">
+        {/* Profile Section */}
+        {profile && (
+          <div className="mb-6 sm:mb-8 bg-primary rounded-sm border border-secondary shadow-md p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
+              {/* Profile Picture */}
+              <div className="flex-shrink-0">
+                {profile.profile_image_url ? (
+                  <img
+                    src={profile.profile_image_url}
+                    alt={profile.full_name || "Profile"}
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-basic shadow-lg object-cover"
+                  />
+                ) : (
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-basic shadow-lg bg-gradient-to-br from-basic to-green-700 flex items-center justify-center">
+                    <span className="text-xl sm:text-3xl font-bold text-primary">
+                      {profile.full_name?.charAt(0).toUpperCase() || "U"}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Profile Info */}
+              <div className="flex-1 text-center sm:text-left">
+                <h3 className="text-xl sm:text-2xl font-bold text-secondary mb-2">
+                  {profile.full_name || "User"}
+                </h3>
+                <p className="text-sm text-secondary opacity-70 mb-3">
+                  {profile.email}
+                </p>
+              </div>
+
+              {/* Edit Profile Button */}
+              <Link
+                to="/account-details"
+                className="py-2 px-6 border border-secondary text-secondary font-semibold rounded-sm text-sm hover:bg-gray-50 transition-all active:scale-95 whitespace-nowrap"
+              >
+                Edit Profile
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* KYC Verification Alert */}
         {profile?.kyc_status !== "verified" && (
           <div className="mb-6 sm:mb-8 p-4 sm:p-6 bg-yellow-50 border-l-4 border-yellow-500 rounded-sm shadow-sm">

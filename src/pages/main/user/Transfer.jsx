@@ -733,20 +733,81 @@ export function TransferPage() {
       setShowPINModal(false);
       setPinInput("");
 
-      // For local transfers, create pending transaction and show status summary
+      // For local transfers, create completed transaction and show receipt
       if (activeTransferType === "local") {
         const fromAccount = accounts.find(
           (a) => a.id === formData.fromAccountId,
         );
         const transferAmount = parseFloat(formData.amount);
 
-        // Create pending transaction
+        // Create completed transaction for local transfers
         const { data: txnData, error: txnError } = await supabase
           .from("transactions")
           .insert([
             {
               from_account_id: formData.fromAccountId,
               external_recipient_name: formData.beneficiaryName,
+              external_recipient_iban: formData.toAccountNumber,
+              amount: transferAmount,
+              currency: fromAccount?.currency || "EUR",
+              transaction_type: activeTransferType,
+              description: formData.description || null,
+              status: "completed",
+              reference_number: `TXN-${Date.now()}-${Math.random()
+                .toString(36)
+                .substr(2, 9)
+                .toUpperCase()}`,
+              initiated_by_user_id: userId,
+              completed_at: new Date().toISOString(),
+              metadata: {
+                transfer_type: activeTransferType,
+                bank_code: formData.bankCode || null,
+                bank_name: formData.bankName || null,
+                beneficiary_name: formData.beneficiaryName || null,
+                country: formData.country || "NL",
+                pin_verified_at: new Date().toISOString(),
+              },
+            },
+          ])
+          .select("*")
+          .single();
+
+        if (txnError) throw txnError;
+
+        // Update account balance
+        const newBalance =
+          parseFloat(fromAccount.balance || 0) - transferAmount;
+        setPendingBalance(newBalance);
+
+        await supabase
+          .from("accounts")
+          .update({ balance: newBalance })
+          .eq("id", formData.fromAccountId);
+
+        // Set transaction state and show receipt immediately
+        setTransactionId(txnData.id);
+        setTransactionData(txnData);
+        setTransactionStatus(txnData.status);
+        setShowReceipt(true);
+
+        setMessage({
+          type: "success",
+          text: `Transfer completed! Reference: ${txnData.reference_number}`,
+        });
+      } else {
+        // For international/wire, create pending transaction and start code verification
+        const fromAccount = accounts.find(
+          (a) => a.id === formData.fromAccountId,
+        );
+        const transferAmount = parseFloat(formData.amount);
+
+        const { data: txnData, error: txnError } = await supabase
+          .from("transactions")
+          .insert([
+            {
+              from_account_id: formData.fromAccountId,
+              external_recipient_name:
+                formData.recipientName || formData.beneficiaryName,
               external_recipient_iban: formData.toAccountNumber,
               amount: transferAmount,
               currency: fromAccount?.currency || "EUR",
@@ -783,23 +844,20 @@ export function TransferPage() {
           .update({ balance: newBalance })
           .eq("id", formData.fromAccountId);
 
-        // Set transaction state and show pending summary
+        // Set transaction state and start code verification
         setTransactionId(txnData.id);
         setTransactionData(txnData);
         setTransactionStatus(txnData.status);
 
         setMessage({
           type: "success",
-          text: "PIN verified. Review your transfer details below before completing.",
+          text: "PIN verified. Completing transfer verification...",
         });
-      } else {
-        // For international/wire, proceed to OTP
-        setMessage({
-          type: "success",
-          text: "PIN verified. Sending OTP...",
-        });
+
+        // Start code verification sequence
         setTimeout(() => {
-          handleRequestOTP(null, true); // Pass true to indicate PIN already verified
+          setCurrentCodeType("cot");
+          setShowCodeModal(true);
         }, 1000);
       }
     } catch (error) {
@@ -1219,7 +1277,7 @@ export function TransferPage() {
                   Details
                 </h2>
 
-                {!showOTPInput && transactionStatus !== "pending" ? (
+                {!showOTPInput && !transactionStatus ? (
                   /* Transfer Form */
                   <form onSubmit={handlePINVerification}>
                     <SelectField
