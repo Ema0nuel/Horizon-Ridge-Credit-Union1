@@ -158,6 +158,108 @@ const SelectField = ({
 );
 
 // Code Verification Modal Component
+// ============================================================================
+// TRANSFER PIN MODAL COMPONENT
+// ============================================================================
+
+const TransferPINModal = ({ isOpen, onVerify, onClose, isLoading, error }) => {
+  const [pinInput, setPinInput] = useState("");
+  const [showPin, setShowPin] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onVerify(pinInput);
+    setPinInput("");
+  };
+
+  const validatePin = () => {
+    if (!pinInput || pinInput.length !== 4) return false;
+    if (!/^\d{4}$/.test(pinInput)) return false;
+    return true;
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-primary rounded-sm border border-secondary shadow-lg max-w-md w-full p-6 sm:p-8">
+        <h3 className="text-xl sm:text-2xl font-bold text-secondary mb-2">
+          Transaction PIN
+        </h3>
+        <p className="text-sm text-secondary opacity-70 mb-6">
+          Enter your 4-digit PIN to confirm this transaction
+        </p>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-xs sm:text-sm font-semibold text-secondary mb-2 uppercase tracking-wider opacity-80">
+              Enter PIN
+            </label>
+            <div className="relative">
+              <input
+                type={showPin ? "text" : "password"}
+                value={pinInput}
+                onChange={(e) => {
+                  const numericValue = e.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 4);
+                  setPinInput(numericValue);
+                }}
+                placeholder="••••"
+                disabled={isLoading}
+                maxLength="4"
+                className={`w-full px-4 py-3 border rounded-sm focus:outline-none focus:ring-2 transition-all font-mono text-center text-lg tracking-widest ${
+                  error
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-secondary focus:ring-basic focus:ring-opacity-30"
+                }`}
+                autoFocus
+              />
+              <button
+                type="button"
+                onClick={() => setShowPin(!showPin)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary hover:opacity-70 disabled:opacity-50"
+                disabled={isLoading}
+              >
+                {showPin ? "Hide" : "Show"}
+              </button>
+            </div>
+            {error && <p className="text-xs text-red-600 mt-2">{error}</p>}
+          </div>
+
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={onClose}
+              disabled={isLoading}
+              className="flex-1 py-2 px-4 border border-secondary text-secondary font-semibold rounded-sm hover:bg-gray-50 transition-all active:scale-95 disabled:opacity-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isLoading || !validatePin()}
+              className="flex-1 py-2 px-4 bg-basic text-primary font-semibold rounded-sm hover:bg-opacity-90 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+            >
+              {isLoading ? (
+                <>
+                  <LoadingSpinner size="sm" /> Verifying...
+                </>
+              ) : (
+                "Verify PIN"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+// ============================================================================
+// CODE VERIFICATION MODAL COMPONENT
+// ============================================================================
+
 const CodeVerificationModal = ({
   isOpen,
   codeType,
@@ -421,7 +523,7 @@ const generateOTPEmailHTML = (code, recipientName, amount, transferType) => `
       </div>
 
       <div class="warning">
-        <strong>âš ï¸ Important:</strong> Never share this code with anyone. Summit Ridge Credit Union staff will never ask for your OTP.
+        <strong>Important:</strong> Never share this code with anyone. Summit Ridge Credit Union staff will never ask for your OTP.
       </div>
 
       <p>If you did not request this transfer, please ignore this email and contact our support team immediately.</p>
@@ -463,6 +565,11 @@ export function TransferPage() {
   });
 
   // OTP & Verification State
+  const [showPINModal, setShowPINModal] = useState(false);
+  const [pinInput, setPinInput] = useState("");
+  const [pinError, setPinError] = useState("");
+  const [pinVerified, setPinVerified] = useState(false);
+
   const [showOTPInput, setShowOTPInput] = useState(false);
   const [otpInput, setOtpInput] = useState("");
   const [otpCodeId, setOtpCodeId] = useState(null);
@@ -584,12 +691,132 @@ export function TransferPage() {
   };
 
   // ============================================================================
-  // HANDLE REQUEST OTP - FOLLOWS EXISTING sendEmailAPI PATTERN
+  // HANDLE PIN VERIFICATION
   // ============================================================================
-  const handleRequestOTP = async (e) => {
+  const handlePINVerification = async (e) => {
     e.preventDefault();
 
+    // Check form validity first
     if (!validateForm()) return;
+
+    // Check if user has PIN set
+    if (!profile?.transaction_pin) {
+      setMessage({
+        type: "error",
+        text: "You must set a transaction PIN before making transfers. Redirecting to PIN setup...",
+      });
+      setTimeout(() => {
+        navigate("/user-details?tab=pin");
+      }, 2000);
+      return;
+    }
+
+    // Show PIN modal
+    setShowPINModal(true);
+    setPinError("");
+  };
+
+  const handleVerifyPIN = async (pin) => {
+    setPinError("");
+    setSubmitting(true);
+
+    try {
+      // Verify PIN against profile
+      if (pin !== profile.transaction_pin) {
+        setPinError("PIN is incorrect");
+        setSubmitting(false);
+        return;
+      }
+
+      // PIN verified successfully
+      setPinVerified(true);
+      setShowPINModal(false);
+      setPinInput("");
+
+      // For local transfers, create pending transaction and show status summary
+      if (activeTransferType === "local") {
+        const fromAccount = accounts.find(
+          (a) => a.id === formData.fromAccountId,
+        );
+        const transferAmount = parseFloat(formData.amount);
+
+        // Create pending transaction
+        const { data: txnData, error: txnError } = await supabase
+          .from("transactions")
+          .insert([
+            {
+              from_account_id: formData.fromAccountId,
+              external_recipient_name: formData.beneficiaryName,
+              external_recipient_iban: formData.toAccountNumber,
+              amount: transferAmount,
+              currency: fromAccount?.currency || "EUR",
+              transaction_type: activeTransferType,
+              description: formData.description || null,
+              status: "pending",
+              reference_number: `TXN-${Date.now()}-${Math.random()
+                .toString(36)
+                .substr(2, 9)
+                .toUpperCase()}`,
+              initiated_by_user_id: userId,
+              metadata: {
+                transfer_type: activeTransferType,
+                bank_code: formData.bankCode || null,
+                bank_name: formData.bankName || null,
+                beneficiary_name: formData.beneficiaryName || null,
+                country: formData.country || "NL",
+                pin_verified_at: new Date().toISOString(),
+              },
+            },
+          ])
+          .select("*")
+          .single();
+
+        if (txnError) throw txnError;
+
+        // Update account balance
+        const newBalance =
+          parseFloat(fromAccount.balance || 0) - transferAmount;
+        setPendingBalance(newBalance);
+
+        await supabase
+          .from("accounts")
+          .update({ balance: newBalance })
+          .eq("id", formData.fromAccountId);
+
+        // Set transaction state and show pending summary
+        setTransactionId(txnData.id);
+        setTransactionData(txnData);
+        setTransactionStatus(txnData.status);
+
+        setMessage({
+          type: "success",
+          text: "PIN verified. Review your transfer details below before completing.",
+        });
+      } else {
+        // For international/wire, proceed to OTP
+        setMessage({
+          type: "success",
+          text: "PIN verified. Sending OTP...",
+        });
+        setTimeout(() => {
+          handleRequestOTP(null, true); // Pass true to indicate PIN already verified
+        }, 1000);
+      }
+    } catch (error) {
+      setPinError("Failed to verify PIN. Please try again.");
+      console.error("[TRANSFER] PIN verification error:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // ============================================================================
+  // HANDLE REQUEST OTP - FOLLOWS EXISTING sendEmailAPI PATTERN
+  // ============================================================================
+  const handleRequestOTP = async (e, skipValidation = false) => {
+    if (e) e.preventDefault();
+
+    if (!skipValidation && !validateForm()) return;
 
     setSubmitting(true);
     setMessage({ type: "", text: "" });
@@ -994,7 +1221,7 @@ export function TransferPage() {
 
                 {!showOTPInput && transactionStatus !== "pending" ? (
                   /* Transfer Form */
-                  <form onSubmit={handleRequestOTP}>
+                  <form onSubmit={handlePINVerification}>
                     <SelectField
                       label="From Account"
                       name="fromAccountId"
@@ -1151,10 +1378,10 @@ export function TransferPage() {
                     >
                       {submitting ? (
                         <>
-                          <LoadingSpinner size="sm" /> Sending OTP...
+                          <LoadingSpinner size="sm" /> Verifying...
                         </>
                       ) : (
-                        "Request OTP & Continue"
+                        "Verify PIN & Continue"
                       )}
                     </button>
                   </form>
@@ -1299,6 +1526,19 @@ export function TransferPage() {
           )}
         </div>
       </main>
+
+      {/* Transaction PIN Modal */}
+      <TransferPINModal
+        isOpen={showPINModal}
+        onVerify={handleVerifyPIN}
+        onClose={() => {
+          setShowPINModal(false);
+          setPinError("");
+          setPinInput("");
+        }}
+        isLoading={submitting}
+        error={pinError}
+      />
 
       {/* Code Verification Modal */}
       <CodeVerificationModal

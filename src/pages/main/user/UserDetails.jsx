@@ -110,6 +110,21 @@ const TabIcon = ({ name }) => {
         />
       </svg>
     ),
+    pin: (
+      <svg
+        className="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+        />
+      </svg>
+    ),
   };
   return iconMap[name] || null;
 };
@@ -975,6 +990,317 @@ const RiskScoreTab = ({ profile, loading }) => {
 };
 
 // ============================================================================
+// TAB: TRANSACTION PIN
+// ============================================================================
+
+const TransactionPINTab = ({ profile, onUpdatePIN, loading, submitting }) => {
+  const [pinSetup, setPinSetup] = useState(false);
+  const [formData, setFormData] = useState({
+    currentPin: "",
+    newPin: "",
+    confirmPin: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState({ type: "", text: "" });
+  const [showCurrentPin, setShowCurrentPin] = useState(false);
+  const [showNewPin, setShowNewPin] = useState(false);
+  const [showConfirmPin, setShowConfirmPin] = useState(false);
+
+  const validatePin = (pin) => {
+    if (!pin || pin.length !== 4) {
+      return "PIN must be exactly 4 digits";
+    }
+    if (!/^\d{4}$/.test(pin)) {
+      return "PIN must contain only numbers";
+    }
+    if (pin === "1234") {
+      return "PIN cannot be 1234";
+    }
+    return "";
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    // Only allow digits and limit to 4 characters
+    const numericValue = value.replace(/\D/g, "").slice(0, 4);
+    setFormData((prev) => ({
+      ...prev,
+      [name]: numericValue,
+    }));
+    // Clear errors for this field
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newErrors = {};
+
+    // Validate current PIN if it exists
+    if (profile?.transaction_pin) {
+      if (!formData.currentPin) {
+        newErrors.currentPin = "Current PIN is required";
+      } else if (formData.currentPin !== profile.transaction_pin) {
+        newErrors.currentPin = "Current PIN is incorrect";
+      }
+    }
+
+    // Validate new PIN
+    const newPinError = validatePin(formData.newPin);
+    if (newPinError) {
+      newErrors.newPin = newPinError;
+    }
+
+    // Validate confirmation
+    if (formData.newPin !== formData.confirmPin) {
+      newErrors.confirmPin = "PINs do not match";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    try {
+      await onUpdatePIN({
+        newPin: formData.newPin,
+        isUpdate: !!profile?.transaction_pin,
+      });
+      setMessage({
+        type: "success",
+        text: profile?.transaction_pin
+          ? "PIN updated successfully"
+          : "PIN set successfully",
+      });
+      setPinSetup(false);
+      setFormData({
+        currentPin: "",
+        newPin: "",
+        confirmPin: "",
+      });
+      setErrors({});
+    } catch (error) {
+      setMessage({
+        type: "error",
+        text: error.message || "Failed to update PIN",
+      });
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
+        <h2 className="text-2xl font-bold text-secondary">Transaction PIN</h2>
+        <p className="text-secondary opacity-70">
+          Set up a secure 4-digit PIN for all financial transactions
+        </p>
+      </div>
+
+      {/* Current Status */}
+      {!pinSetup && (
+        <div className="bg-primary rounded-sm border border-secondary p-6 shadow-sm">
+          <div className="flex justify-between items-center">
+            <div>
+              <h3 className="text-lg font-semibold text-secondary">
+                PIN Status
+              </h3>
+              {profile?.transaction_pin ? (
+                <div>
+                  <p className="text-sm text-green-600 mt-2">✓ PIN is set</p>
+                  {profile?.pin_updated_at && (
+                    <p className="text-xs text-secondary opacity-70 mt-1">
+                      Last updated:{" "}
+                      {new Date(profile.pin_updated_at).toLocaleDateString()}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p className="text-sm text-orange-600 mt-2">
+                  ⚠ No PIN set. You must set a PIN before making transfers.
+                </p>
+              )}
+            </div>
+            <button
+              onClick={() => setPinSetup(true)}
+              className="px-6 py-2 bg-basic text-primary font-semibold rounded-sm hover:bg-opacity-90 transition-all active:scale-95"
+            >
+              {profile?.transaction_pin ? "Update PIN" : "Set PIN"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Setup Form */}
+      {pinSetup && (
+        <form
+          onSubmit={handleSubmit}
+          className="bg-primary rounded-sm border border-secondary p-6 shadow-sm space-y-4"
+        >
+          {/* Current PIN (if exists) */}
+          {profile?.transaction_pin && (
+            <div>
+              <label className="block text-xs sm:text-sm font-semibold text-secondary mb-2 uppercase tracking-wider opacity-80">
+                Current PIN
+              </label>
+              <div className="relative">
+                <input
+                  type={showCurrentPin ? "text" : "password"}
+                  name="currentPin"
+                  value={formData.currentPin}
+                  onChange={handleChange}
+                  placeholder="••••"
+                  maxLength="4"
+                  className={`w-full px-4 py-2 border rounded-sm text-center tracking-widest focus:outline-none focus:ring-2 transition-all ${
+                    errors.currentPin
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-secondary focus:ring-basic focus:ring-opacity-30"
+                  }`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowCurrentPin(!showCurrentPin)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary hover:opacity-70"
+                >
+                  {showCurrentPin ? "Hide" : "Show"}
+                </button>
+              </div>
+              {errors.currentPin && (
+                <p className="text-sm text-red-600 mt-1">{errors.currentPin}</p>
+              )}
+            </div>
+          )}
+
+          {/* New PIN */}
+          <div>
+            <label className="block text-xs sm:text-sm font-semibold text-secondary mb-2 uppercase tracking-wider opacity-80">
+              New PIN
+            </label>
+            <div className="relative">
+              <input
+                type={showNewPin ? "text" : "password"}
+                name="newPin"
+                value={formData.newPin}
+                onChange={handleChange}
+                placeholder="••••"
+                maxLength="4"
+                className={`w-full px-4 py-2 border rounded-sm text-center tracking-widest focus:outline-none focus:ring-2 transition-all ${
+                  errors.newPin
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-secondary focus:ring-basic focus:ring-opacity-30"
+                }`}
+              />
+              <button
+                type="button"
+                onClick={() => setShowNewPin(!showNewPin)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary hover:opacity-70"
+              >
+                {showNewPin ? "Hide" : "Show"}
+              </button>
+            </div>
+            {errors.newPin && (
+              <p className="text-sm text-red-600 mt-1">{errors.newPin}</p>
+            )}
+          </div>
+
+          {/* Confirm PIN */}
+          <div>
+            <label className="block text-xs sm:text-sm font-semibold text-secondary mb-2 uppercase tracking-wider opacity-80">
+              Confirm PIN
+            </label>
+            <div className="relative">
+              <input
+                type={showConfirmPin ? "text" : "password"}
+                name="confirmPin"
+                value={formData.confirmPin}
+                onChange={handleChange}
+                placeholder="••••"
+                maxLength="4"
+                className={`w-full px-4 py-2 border rounded-sm text-center tracking-widest focus:outline-none focus:ring-2 transition-all ${
+                  errors.confirmPin
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-secondary focus:ring-basic focus:ring-opacity-30"
+                }`}
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPin(!showConfirmPin)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary hover:opacity-70"
+              >
+                {showConfirmPin ? "Hide" : "Show"}
+              </button>
+            </div>
+            {errors.confirmPin && (
+              <p className="text-sm text-red-600 mt-1">{errors.confirmPin}</p>
+            )}
+          </div>
+
+          {/* Requirements */}
+          <div className="bg-blue-50 rounded-sm p-4 text-sm text-blue-900 border border-blue-200">
+            <p className="font-semibold mb-2">PIN Requirements:</p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Must be exactly 4 digits</li>
+              <li>Cannot be 1234</li>
+              <li>Required for all financial transactions</li>
+            </ul>
+          </div>
+
+          {/* Message */}
+          {message.text && (
+            <div
+              className={`p-4 rounded-sm border-l-4 ${
+                message.type === "success"
+                  ? "bg-green-50 border-green-500 text-green-800"
+                  : "bg-red-50 border-red-500 text-red-800"
+              }`}
+            >
+              {message.text}
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="flex gap-3">
+            <button
+              type="submit"
+              disabled={loading || submitting}
+              className="flex-1 px-4 py-2 bg-basic text-primary font-semibold rounded-sm hover:bg-opacity-90 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+            >
+              {submitting ? (
+                <>
+                  <LoadingSpinner size="sm" /> Saving...
+                </>
+              ) : (
+                "Save PIN"
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setPinSetup(false);
+                setFormData({
+                  currentPin: "",
+                  newPin: "",
+                  confirmPin: "",
+                });
+                setErrors({});
+                setMessage({ type: "", text: "" });
+              }}
+              className="flex-1 px-4 py-2 bg-gray-200 text-secondary font-semibold rounded-sm hover:bg-gray-300 transition-all active:scale-95"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
+  );
+};
+
+// ============================================================================
 // TAB: ACCOUNT STATUS EDIT
 // ============================================================================
 
@@ -1172,7 +1498,17 @@ export function UserDetailsPage() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
-  const [activeTab, setActiveTab] = useState("account");
+  const [activeTab, setActiveTab] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("tab") || "account";
+  });
+
+  // Sync activeTab with URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    params.set("tab", activeTab);
+    window.history.replaceState({}, "", `?tab=${activeTab}`);
+  }, [activeTab]);
 
   // Load data on mount
   useEffect(() => {
@@ -1382,6 +1718,38 @@ export function UserDetailsPage() {
     }
   };
 
+  const handleUpdatePIN = async ({ newPin, isUpdate }) => {
+    setSubmitting(true);
+    try {
+      const updateData = {
+        transaction_pin: newPin,
+        pin_updated_at: new Date().toISOString(),
+      };
+
+      // Add pin_set_at only for initial PIN setup
+      if (!isUpdate) {
+        updateData.pin_set_at = new Date().toISOString();
+      }
+
+      const { error } = await supabase
+        .from("user_profiles")
+        .update(updateData)
+        .eq("id", userId);
+
+      if (error) throw error;
+
+      setProfile((prev) => ({
+        ...prev,
+        ...updateData,
+      }));
+    } catch (err) {
+      console.error("[USER_DETAILS] PIN update error:", err);
+      throw err;
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-primary flex items-center justify-center">
@@ -1398,6 +1766,7 @@ export function UserDetailsPage() {
   const tabs = [
     { id: "account", label: "Account Details", icon: "account" },
     { id: "settings", label: "User Settings", icon: "settings" },
+    { id: "pin", label: "Transaction PIN", icon: "pin" },
     { id: "risk", label: "Risk Score", icon: "risk" },
     { id: "status", label: "Account Status", icon: "status" },
   ];
@@ -1490,6 +1859,15 @@ export function UserDetailsPage() {
               loading={loading}
               submitting={submitting}
               imageUploading={imageUploading}
+            />
+          )}
+
+          {activeTab === "pin" && (
+            <TransactionPINTab
+              profile={profile}
+              loading={loading}
+              submitting={submitting}
+              onUpdatePIN={handleUpdatePIN}
             />
           )}
 

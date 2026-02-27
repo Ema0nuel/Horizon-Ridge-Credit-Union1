@@ -1,4 +1,5 @@
-﻿import React, { useState, useEffect } from "react";
+﻿/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../Services/supabase/supabaseClient";
 import { sendEmailAPI } from "../../../Services/api";
@@ -290,7 +291,7 @@ const generateAirtimeOTPEmailHTML = (code, phoneNumber, amount, network) => `
       </div>
 
       <div class="warning">
-        <strong>âš ï¸ Important:</strong> Never share this code with anyone. Summit Ridge Credit Union staff will never ask for your OTP.
+        <strong>Important:</strong> Never share this code with anyone. Summit Ridge Credit Union staff will never ask for your OTP.
       </div>
 
       <p>If you did not request this airtime purchase, please ignore this email and contact our support team immediately.</p>
@@ -439,6 +440,107 @@ const isValidPhoneNumber = (phone) => {
 };
 
 // Main Component
+// PIN Modal Component (reusable for BuyAirtime and AddMoney)
+const PINVerificationModal = ({
+  isOpen,
+  onVerify,
+  onClose,
+  isLoading,
+  error,
+}) => {
+  const [pinInput, setPinInput] = useState("");
+  const [showPin, setShowPin] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onVerify(pinInput);
+    setPinInput("");
+  };
+
+  const validatePin = () => {
+    if (!pinInput || pinInput.length !== 4) return false;
+    if (!/^\d{4}$/.test(pinInput)) return false;
+    return true;
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-primary rounded-sm border border-secondary shadow-lg max-w-md w-full p-6 sm:p-8">
+        <h3 className="text-xl sm:text-2xl font-bold text-secondary mb-2">
+          Transaction PIN
+        </h3>
+        <p className="text-sm text-secondary opacity-70 mb-6">
+          Enter your 4-digit PIN to confirm this transaction
+        </p>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-xs sm:text-sm font-semibold text-secondary mb-2 uppercase tracking-wider opacity-80">
+              Enter PIN
+            </label>
+            <div className="relative">
+              <input
+                type={showPin ? "text" : "password"}
+                value={pinInput}
+                onChange={(e) => {
+                  const numericValue = e.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 4);
+                  setPinInput(numericValue);
+                }}
+                placeholder="••••"
+                disabled={isLoading}
+                maxLength="4"
+                className={`w-full px-4 py-3 border rounded-sm focus:outline-none focus:ring-2 transition-all font-mono text-center text-lg tracking-widest ${
+                  error
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-secondary focus:ring-basic focus:ring-opacity-30"
+                }`}
+                autoFocus
+              />
+              <button
+                type="button"
+                onClick={() => setShowPin(!showPin)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary hover:opacity-70 disabled:opacity-50"
+                disabled={isLoading}
+              >
+                {showPin ? "Hide" : "Show"}
+              </button>
+            </div>
+            {error && <p className="text-xs text-red-600 mt-2">{error}</p>}
+          </div>
+
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={onClose}
+              disabled={isLoading}
+              className="flex-1 py-2 px-4 border border-secondary text-secondary font-semibold rounded-sm hover:bg-gray-50 transition-all active:scale-95 disabled:opacity-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isLoading || !validatePin()}
+              className="flex-1 py-2 px-4 bg-basic text-primary font-semibold rounded-sm hover:bg-opacity-90 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+            >
+              {isLoading ? (
+                <>
+                  <LoadingSpinner size="sm" /> Verifying...
+                </>
+              ) : (
+                "Verify PIN"
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 export function BuyAirtimePage() {
   const navigate = useNavigate();
 
@@ -451,7 +553,8 @@ export function BuyAirtimePage() {
   // UI State
   const [selectedNetwork, setSelectedNetwork] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [showOTPInput, setShowOTPInput] = useState(false);
+  const [showPINModal, setShowPINModal] = useState(false);
+  const [pinError, setPinError] = useState("");
   const [showReceipt, setShowReceipt] = useState(false);
 
   // Form State
@@ -463,10 +566,7 @@ export function BuyAirtimePage() {
     description: "",
   });
 
-  // OTP & Verification State
-  const [otpInput, setOtpInput] = useState("");
-  const [otpCodeId, setOtpCodeId] = useState(null);
-  const [codeRecord, setCodeRecord] = useState(null);
+  // OTP & Verification State (removed - using PIN instead)
 
   // Transaction State
   const [transactionData, setTransactionData] = useState(null);
@@ -575,93 +675,63 @@ export function BuyAirtimePage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleRequestOTP = async (e) => {
+  // ============================================================================
+  // HANDLE PIN VERIFICATION FOR AIRTIME PURCHASE
+  // ============================================================================
+  const handleRequestPINVerification = async (e) => {
     e.preventDefault();
 
+    // Check form validity
     if (!validateForm()) return;
 
-    setSubmitting(true);
-    setMessage({ type: "", text: "" });
-
-    try {
-      const { data: codeData, error: codeError } = await supabase
-        .from("codes")
-        .select("*")
-        .eq("is_used", false)
-        .gt("expires_at", new Date().toISOString())
-        .limit(1)
-        .single();
-
-      if (codeError || !codeData) {
-        throw new Error("No available OTP codes. Please try again later.");
-      }
-
-      const network = NETWORKS.find((n) => n.id === formData.network);
-
-      await sendEmailAPI({
-        to: profile?.email,
-        subject:
-          "Your Summit Ridge Credit Union Airtime Purchase Verification Code",
-        html: generateAirtimeOTPEmailHTML(
-          codeData.code,
-          formData.phoneNumber,
-          `$${parseFloat(formData.amount).toFixed(2)}`,
-          network?.name || "Network",
-        ),
+    // Check if user has PIN set
+    if (!profile?.transaction_pin) {
+      setMessage({
+        type: "error",
+        text: "You must set a transaction PIN before purchasing airtime. Redirecting to PIN setup...",
       });
-
-      setCodeRecord(codeData);
-      setOtpCodeId(codeData.id);
-      setShowOTPInput(true);
-      setMessage({ type: "success", text: `OTP sent to ${profile?.email}` });
-    } catch (err) {
-      console.error("[BUY_AIRTIME] OTP request error:", err);
-      setMessage({ type: "error", text: err.message || "Failed to send OTP" });
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleVerifyOTP = async (e) => {
-    e.preventDefault();
-
-    if (!otpInput.trim()) {
-      setErrors({ otpCode: "Enter OTP code" });
+      setTimeout(() => {
+        navigate("/user-details?tab=pin");
+      }, 2000);
       return;
     }
 
+    // Show PIN modal
+    setShowPINModal(true);
+    setPinError("");
+  };
+
+  const handleVerifyPIN = async (pin) => {
+    setPinError("");
     setSubmitting(true);
-    setMessage({ type: "", text: "" });
 
     try {
-      // Verify code exists in database
-      const { data: dbCodeData, error: dbCodeError } = await supabase
-        .from("codes")
-        .select("*")
-        .eq("code", otpInput.trim())
-        .eq("is_used", false)
-        .gt("expires_at", new Date().toISOString())
-        .single();
-
-      if (dbCodeError || !dbCodeData) {
-        setErrors({ otpCode: "Invalid or expired code" });
+      // Verify PIN against profile
+      if (pin !== profile?.transaction_pin) {
+        setPinError("PIN is incorrect");
         setSubmitting(false);
         return;
       }
 
+      // PIN verified - proceed with purchase
+      setShowPINModal(false);
+      await handleCompletePurchase();
+    } catch (error) {
+      setPinError("Failed to verify PIN. Please try again.");
+      setSubmitting(false);
+    }
+  };
+
+  // ============================================================================
+  // HANDLE COMPLETE AIRTIME PURCHASE (after PIN verification)
+  // ============================================================================
+  const handleCompletePurchase = async () => {
+    setMessage({ type: "", text: "" });
+
+    try {
       const fromAccount = accounts.find((a) => a.id === formData.fromAccountId);
       const airtimeAmount = parseFloat(formData.amount);
       const network = NETWORKS.find((n) => n.id === formData.network);
-
-      // Mark OTP as used
-      await supabase
-        .from("codes")
-        .update({
-          is_used: true,
-          used_at: new Date().toISOString(),
-          used_by_user_id: userId,
-        })
-        .eq("id", dbCodeData.id);
 
       // Create airtime transaction (pending status for admin approval)
       const { data: txnData, error: txnError } = await supabase
@@ -677,48 +747,40 @@ export function BuyAirtimePage() {
             description:
               formData.description ||
               `Airtime purchase - ${network?.name} - ${formData.phoneNumber}`,
-            reference_number: `AIR-${Date.now()}-${Math.random()
-              .toString(36)
-              .substr(2, 9)
-              .toUpperCase()}`,
-            initiated_by_user_id: userId,
             metadata: {
-              transaction_type: "airtime",
+              phone_number: formData.phoneNumber,
               network: formData.network,
               network_name: network?.name,
-              phone_number: formData.phoneNumber,
-              otp_verified_at: new Date().toISOString(),
-              awaiting_admin_approval: true,
+              pin_verified_at: new Date().toISOString(),
             },
           },
         ])
-        .select("*")
+        .select()
         .single();
 
       if (txnError) throw txnError;
 
-      // Deduct from account balance (will be reversed if admin rejects)
-      const newBalance = parseFloat(fromAccount.balance || 0) - airtimeAmount;
-      await supabase
-        .from("accounts")
-        .update({ balance: newBalance })
-        .eq("id", formData.fromAccountId);
-
       setTransactionData(txnData);
       setTransactionStatus("pending");
-      setShowOTPInput(false);
-      setOtpInput("");
       setShowReceipt(true);
+
       setMessage({
         type: "success",
-        text: `Airtime purchase submitted! Reference: ${txnData.reference_number}`,
+        text: "Airtime purchase initiated. Awaiting admin approval.",
       });
     } catch (err) {
-      console.error("[BUY_AIRTIME] OTP verification error:", err);
-      setMessage({ type: "error", text: err.message || "Verification failed" });
-    } finally {
+      console.error("[BUY_AIRTIME] Purchase error:", err);
+      setMessage({
+        type: "error",
+        text: err.message || "Failed to complete purchase",
+      });
       setSubmitting(false);
     }
+  };
+
+  const handleVerifyOTP = async (e) => {
+    // This function is removed - using PIN-based verification instead
+    console.log("[BUY_AIRTIME] OTP verification removed - using PIN instead");
   };
 
   const resetForm = () => {
@@ -732,8 +794,7 @@ export function BuyAirtimePage() {
     setErrors({});
     setMessage({ type: "", text: "" });
     setShowForm(false);
-    setShowOTPInput(false);
-    setOtpInput("");
+    setShowPINModal(false);
     setTransactionData(null);
     setTransactionStatus(null);
     setShowReceipt(false);
@@ -839,9 +900,9 @@ export function BuyAirtimePage() {
                   Airtime Purchase
                 </h2>
 
-                {!showOTPInput && transactionStatus !== "pending" ? (
+                {transactionStatus !== "pending" ? (
                   /* Airtime Form */
-                  <form onSubmit={handleRequestOTP}>
+                  <form onSubmit={handleRequestPINVerification}>
                     <SelectField
                       label="From Account"
                       name="fromAccountId"
@@ -958,7 +1019,8 @@ export function BuyAirtimePage() {
                               Amount:
                             </span>
                             <span className="font-bold text-basic text-lg">
-                              ${parseFloat(formData.amount || 0).toFixed(2)}
+                              {formData.currency || "USD"}{" "}
+                              {parseFloat(formData.amount || 0).toFixed(2)}
                             </span>
                           </div>
                         </div>
@@ -972,69 +1034,131 @@ export function BuyAirtimePage() {
                     >
                       {submitting ? (
                         <>
-                          <LoadingSpinner size="sm" /> Sending OTP...
+                          <LoadingSpinner size="sm" /> Verifying...
                         </>
                       ) : (
-                        "Request OTP & Continue"
+                        "Verify PIN & Purchase"
                       )}
                     </button>
                   </form>
-                ) : showOTPInput && transactionStatus !== "pending" ? (
-                  /* OTP Verification Form */
-                  <form onSubmit={handleVerifyOTP}>
-                    <div className="mb-6 p-4 sm:p-6 rounded-sm border border-secondary bg-primary">
-                      <p className="text-secondary text-sm">
-                        OTP code sent to{" "}
-                        <strong className="text-basic">{profile?.email}</strong>
-                        . Valid for 5 minutes.
-                      </p>
-                    </div>
+                ) : (
+                  /* Pending Status Summary */
+                  <div className="space-y-6">
+                    <div className="p-6 rounded-sm border border-secondary bg-primary">
+                      <div className="mb-6 p-4 rounded-sm bg-yellow-50 border border-yellow-200">
+                        <p className="text-sm font-semibold text-yellow-800">
+                          ⏳ Purchase Pending Admin Approval
+                        </p>
+                        <p className="text-xs text-yellow-700 mt-2">
+                          Your airtime purchase has been submitted and is
+                          awaiting approval from our team. You will receive an
+                          email confirmation once processed.
+                        </p>
+                      </div>
 
-                    <FormField
-                      label="Enter OTP Code"
-                      name="otpCode"
-                      value={otpInput}
-                      onChange={(e) => {
-                        setOtpInput(e.target.value);
-                        setErrors({});
-                      }}
-                      placeholder="000000"
-                      required
-                      error={errors.otpCode}
-                    />
+                      <h3 className="text-lg font-semibold text-secondary mb-4">
+                        Transaction Summary
+                      </h3>
 
-                    <div className="flex gap-3">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setShowOTPInput(false);
-                          setOtpInput("");
-                        }}
-                        className="flex-1 py-3 px-6 border border-secondary text-secondary font-semibold rounded-sm hover:bg-gray-50 transition-all active:scale-95"
-                      >
-                        Back
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={submitting}
-                        className="flex-1 py-3 px-6 bg-basic text-primary font-semibold rounded-sm hover:bg-opacity-90 disabled:opacity-50 transition-all active:scale-95 flex items-center justify-center gap-2"
-                      >
-                        {submitting ? (
-                          <>
-                            <LoadingSpinner size="sm" /> Verifying...
-                          </>
-                        ) : (
-                          "Verify & Complete"
-                        )}
-                      </button>
+                      <div className="space-y-3 text-sm border-b border-secondary pb-4 mb-4">
+                        <div className="flex justify-between">
+                          <span className="text-secondary opacity-70">
+                            Reference:
+                          </span>
+                          <span className="font-mono font-semibold text-secondary">
+                            {transactionData?.reference_number}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-secondary opacity-70">
+                            Date & Time:
+                          </span>
+                          <span className="font-semibold text-secondary">
+                            {new Date().toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 text-sm">
+                        <div>
+                          <p className="text-secondary opacity-70 text-xs uppercase tracking-wider mb-2">
+                            From Account
+                          </p>
+                          <p className="font-semibold text-secondary">
+                            {fromAccount?.account_number}
+                          </p>
+                          <p className="text-xs text-secondary opacity-70">
+                            {profile?.full_name}
+                          </p>
+                        </div>
+
+                        <div className="mt-4">
+                          <p className="text-secondary opacity-70 text-xs uppercase tracking-wider mb-2">
+                            Network
+                          </p>
+                          <p className="font-semibold text-secondary capitalize">
+                            {NETWORKS.find((n) => n.id === formData.network)
+                              ?.name || "---"}
+                          </p>
+                        </div>
+
+                        <div className="mt-4">
+                          <p className="text-secondary opacity-70 text-xs uppercase tracking-wider mb-2">
+                            Phone Number
+                          </p>
+                          <p className="font-semibold text-secondary font-mono">
+                            {formData.phoneNumber}
+                          </p>
+                        </div>
+
+                        <div className="mt-4 pt-4 border-t border-secondary">
+                          <p className="text-secondary opacity-70 text-xs uppercase tracking-wider mb-2">
+                            Amount
+                          </p>
+                          <p className="font-bold text-basic text-2xl">
+                            {fromAccount?.currency || "USD"}{" "}
+                            {parseFloat(formData.amount || 0).toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-6 flex gap-3">
+                        <button
+                          onClick={() => {
+                            resetForm();
+                            setShowForm(false);
+                          }}
+                          className="flex-1 py-2 px-4 border border-secondary text-secondary font-semibold rounded-sm hover:bg-gray-50 transition-all active:scale-95"
+                        >
+                          New Purchase
+                        </button>
+                        <button
+                          onClick={() => setShowReceipt(true)}
+                          className="flex-1 py-2 px-4 bg-basic text-primary font-semibold rounded-sm hover:bg-opacity-90 transition-all active:scale-95"
+                        >
+                          View Receipt
+                        </button>
+                      </div>
                     </div>
-                  </form>
-                ) : null}
+                  </div>
+                )}
               </div>
             </div>
           )}
         </div>
       </main>
+
+      {/* PIN Verification Modal */}
+      <PINVerificationModal
+        isOpen={showPINModal}
+        onVerify={handleVerifyPIN}
+        onClose={() => {
+          setShowPINModal(false);
+          setPinError("");
+        }}
+        isLoading={submitting}
+        error={pinError}
+      />
 
       {/* Receipt Modal */}
       <ReceiptModal

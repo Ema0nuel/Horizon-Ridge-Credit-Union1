@@ -220,7 +220,7 @@ const generateDepositOTPEmailHTML = (code, amount, bankName) => `
         </div>
       </div>
       <div class="warning">
-        <strong>âš ï¸ Important:</strong> Never share this code with anyone. Summit Ridge Credit Union staff will never ask for your OTP.
+        <strong>Important:</strong> Never share this code with anyone. Summit Ridge Credit Union staff will never ask for your OTP.
       </div>
       <p>If you did not request this deposit, please ignore this email and contact our support team immediately.</p>
     </div>
