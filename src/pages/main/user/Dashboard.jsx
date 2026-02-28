@@ -313,7 +313,7 @@ export function DashboardPage() {
       <main className="container mx-auto max-w-6xl px-4 py-6 sm:py-8">
         {/* Profile Picture - Corner Position */}
         {profile && (
-          <div className="mb-2 flex justify-end">
+          <div className="mb-2 flex justify-start">
             <div className="w-16 h-16 sm:w-20 sm:h-20">
               {profile.profile_image_url ? (
                 <img
